@@ -1,4 +1,7 @@
 package com.github.plastix.chester;
 
-public class Chester {
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Chester extends JavaPlugin {
+
 }
