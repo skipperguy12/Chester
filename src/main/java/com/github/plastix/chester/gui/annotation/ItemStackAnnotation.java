@@ -12,7 +12,7 @@ public @interface ItemStackAnnotation {
 
     int amount() default 1;
 
-    String name() default "";
+    String name();
 
     String[] lore() default {};
 
