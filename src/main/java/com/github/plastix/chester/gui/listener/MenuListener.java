@@ -9,7 +9,6 @@ import com.github.plastix.chester.gui.MenuRegistry;
 import com.github.plastix.chester.gui.annotation.IgnoreSlots;
 import com.github.plastix.chester.gui.annotation.MenuInventory;
 import com.github.plastix.chester.gui.annotation.MenuItem;
-import com.google.common.collect.Lists;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

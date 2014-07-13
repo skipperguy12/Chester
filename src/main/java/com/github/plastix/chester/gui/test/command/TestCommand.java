@@ -9,8 +9,6 @@ import com.sk89q.minecraft.util.commands.CommandException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.io.IOException;
-
 public class TestCommand {
 
     @Command(aliases = {"menu"}, desc = "Show test menu", usage = "", min = 0, max = 0)
