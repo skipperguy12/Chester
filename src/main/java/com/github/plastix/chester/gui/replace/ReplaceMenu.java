@@ -14,7 +14,7 @@ import org.bukkit.inventory.Inventory;
 
 @MenuInventory(
     slots = 27,
-    name = "Replace Menu"
+    name = "§3Replace Menu"
 )
 @IgnoreSlots(slots = {12, 14}, materials = {Material.PAPER, Material.PAPER})
 @NestedMenu(
@@ -31,7 +31,7 @@ public class ReplaceMenu extends Menu {
 
     @MenuItem(
         slot = 0,
-        name = "Item Filters",
+        name = "§b§lItem Filters",
         material = Material.HOPPER
     )
     public void itemFilterMenu(ChesterPlayer player) {
@@ -40,7 +40,7 @@ public class ReplaceMenu extends Menu {
 
     @MenuItem(
         slot = 1,
-        name = "Container Filters",
+        name = "§6§lContainer Filters",
         material = Material.CHEST
     )
     public void containerFilterMenu(ChesterPlayer player) {
@@ -49,7 +49,7 @@ public class ReplaceMenu extends Menu {
 
     @MenuItem(
         slot = 8,
-        name = "Save & Apply",
+        name = "§a§lSave & Apply",
         material = Material.WOOL,
         durability = 5
     )
