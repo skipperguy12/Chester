@@ -41,7 +41,7 @@ public class MenuListener implements Listener {
             e.setCancelled(cancel);
             for (Method m : MenuRegistry.getLoadedMenus().get(manager.getCurrentMenu().getClass())) {
                 MenuItem menuItem = m.getAnnotation(MenuItem.class);
-                if (e.getSlot() == menuItem.slot()) try {
+                if (e.getRawSlot() == menuItem.slot()) try {
                     m.invoke(manager.getCurrentMenu(), player);
                     return;
                 } catch (IllegalAccessException e1) {
