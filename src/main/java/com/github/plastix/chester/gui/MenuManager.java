@@ -26,7 +26,6 @@ public class MenuManager {
             currentMenu = menu;
             currentMenu.setInventory(MenuRegistry.generateFreshMenu(menu.getClass(), 27, "Test", new ItemStack(Material.BEDROCK)));
         }
-        //TODO: Update player
     }
 
     private Menu getMenu(Class clazz){
