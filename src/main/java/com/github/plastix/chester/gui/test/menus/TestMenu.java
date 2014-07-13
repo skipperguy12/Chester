@@ -1,13 +1,11 @@
 package com.github.plastix.chester.gui.test.menus;
 
 import com.github.plastix.chester.ChesterPlayer;
-import com.github.plastix.chester.gui.Menu;
-import com.github.plastix.chester.gui.MenuItem;
-import com.github.plastix.chester.gui.MenuManager;
-import com.github.plastix.chester.gui.NestedMenu;
+import com.github.plastix.chester.gui.*;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 
+@MenuInventory(slots = 27, name = "Big Menu", filler = Material.BEDROCK)
 @NestedMenu({TestMenu.TestSubMenu.class})
 public class TestMenu extends Menu {
 
@@ -21,6 +19,7 @@ public class TestMenu extends Menu {
         player.setActiveMenu(new TestSubMenu(manager, null));
     }
 
+    @MenuInventory(slots = 18, name = "Sub Menu", filler = Material.BED, onClose = TestMenu.class)
     public static class TestSubMenu extends Menu {
 
         public TestSubMenu(MenuManager manager, Inventory inv) {

@@ -66,6 +66,11 @@ public class ChesterPlayer {
         bukkit.openInventory(menuManager.getCurrentMenu().getInventory());
     }
 
+    public void setActiveMenu(Class clazz){
+        menuManager.setPreviouslyOpenedActiveMenu(clazz);
+        bukkit.openInventory(menuManager.getCurrentMenu().getInventory());
+    }
+
     /**
      * Reset the menu manager, and erases all menu history
      */

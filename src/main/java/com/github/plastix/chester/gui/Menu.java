@@ -1,5 +1,6 @@
 package com.github.plastix.chester.gui;
 
+import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -35,6 +36,14 @@ public class Menu {
         this.title = title;
         this.size = DEFAULT_INVENTORY_SIZE;
         this.emptySlot = DEFAULT_EMPTY_SLOT;
+    }
+
+    public Menu(MenuManager manager, Inventory inv, Material emptySlot){
+        this.manager = manager;
+        this.inv = inv;
+        this.emptySlot = new ItemStack(emptySlot);
+        title = null; //Not needed
+        size = 0; //Not needed
     }
 
     public void setInventory(Inventory inv) {

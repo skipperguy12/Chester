@@ -9,7 +9,7 @@ public class MenuManager {
 
     private
     @Nullable
-    Menu currentMenu = null;
+    Menu currentMenu = null; //what is this horrific formatting
     private
     @Nullable
     Menu previousMenu = null;
@@ -26,8 +26,15 @@ public class MenuManager {
             currentMenu = getMenu(menu.getClass());
         } else {
             currentMenu = menu;
-            currentMenu.setInventory(MenuRegistry.generateFreshMenu(menu.getClass(), menu.getSize(), menu.getTitle(), menu.getEmptySlot()));
+            currentMenu.setInventory(MenuRegistry.generateFreshMenu(menu.getClass(), menu.getSize(), menu.getTitle()));
+            menus.add(currentMenu);
         }
+    }
+
+    //The menu must have been opened already for this to work
+    public void setPreviouslyOpenedActiveMenu(Class clazz) {
+        if (hasMenu(clazz))
+            setActiveMenu(getMenu(clazz));
     }
 
     private Menu getMenu(Class clazz) {

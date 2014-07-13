@@ -41,9 +41,10 @@ public class MenuRegistry {
         return loadedMenus;
     }
 
-    public static Inventory generateFreshMenu(Class clazz, int size, String name, ItemStack filler) {
-        Inventory inv = Bukkit.createInventory(null, size, name);
-        for (int i = 0; i < inv.getSize(); i++) inv.setItem(i, filler);
+    public static Inventory generateFreshMenu(Class clazz, int size, String name) {
+        MenuInventory menuInv = (MenuInventory) clazz.getAnnotation(MenuInventory.class);
+        Inventory inv = Bukkit.createInventory(null, menuInv.slots(), menuInv.name());
+        for (int i = 0; i < inv.getSize(); i++) inv.setItem(i, new ItemStack(menuInv.filler()));
         for (Method m : loadedMenus.get(clazz)) {
             MenuItem menuItem = m.getAnnotation(MenuItem.class);
             ItemStack item = new ItemStack(menuItem.material());
