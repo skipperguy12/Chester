@@ -1,7 +1,8 @@
 package com.github.plastix.chester.gui.test.menus;
 
 import com.github.plastix.chester.ChesterPlayer;
-import com.github.plastix.chester.gui.*;
+import com.github.plastix.chester.gui.Menu;
+import com.github.plastix.chester.gui.MenuManager;
 import com.github.plastix.chester.gui.annotation.IgnoreSlots;
 import com.github.plastix.chester.gui.annotation.MenuInventory;
 import com.github.plastix.chester.gui.annotation.MenuItem;
@@ -24,7 +25,7 @@ public class TestMenu extends Menu {
     }
 
     @MenuInventory(slots = 18, name = "Sub Menu", filler = Material.BED, onClose = TestMenu.class)
-    @IgnoreSlots(slots = {1,2,3}, materials = {Material.BED, Material.STONE_SWORD, Material.GOLD_AXE})
+    @IgnoreSlots(slots = {1, 2, 3}, materials = {Material.BED, Material.STONE_SWORD, Material.GOLD_AXE})
     public static class TestSubMenu extends Menu {
 
         public TestSubMenu(MenuManager manager, Inventory inv) {

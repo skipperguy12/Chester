@@ -17,7 +17,7 @@ import org.bukkit.inventory.Inventory;
     name = "Replace Menu",
     filler = Material.AIR
 )
-@IgnoreSlots(slots = {12,14}, materials = {Material.PAPER, Material.PAPER})
+@IgnoreSlots(slots = {12, 14}, materials = {Material.PAPER, Material.PAPER})
 @NestedMenu(
     {
         ContainerFilterMenu.class,
@@ -35,7 +35,7 @@ public class ReplaceMenu extends Menu {
         name = "Item Filters",
         material = Material.HOPPER
     )
-    public void itemFilterMenu(ChesterPlayer player){
+    public void itemFilterMenu(ChesterPlayer player) {
         player.setActiveMenu(new ItemFilterMenu(manager, null));
     }
 
@@ -44,7 +44,7 @@ public class ReplaceMenu extends Menu {
         name = "Container Filters",
         material = Material.CHEST
     )
-    public void containerFilterMenu(ChesterPlayer player){
+    public void containerFilterMenu(ChesterPlayer player) {
         player.setActiveMenu(new ContainerFilterMenu(manager, null));
     }
 
@@ -54,7 +54,7 @@ public class ReplaceMenu extends Menu {
         material = Material.WOOL,
         durability = 5
     )
-    public void saveAndApply(ChesterPlayer player){
+    public void saveAndApply(ChesterPlayer player) {
         player.resetManager();
     }
 
