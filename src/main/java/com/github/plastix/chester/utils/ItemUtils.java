@@ -100,7 +100,7 @@ public class ItemUtils {
      * @param annotation Annotation to be converted.
      * @return A formatted {@link org.bukkit.inventory.ItemStack} with data from the {@link com.github.plastix.chester.gui.annotation.ItemStackAnnotation}
      */
-    public static ItemStack annotationToBukkit(ItemStackAnnotation annotation) {
+    public static ItemStack annotationToItemStack(ItemStackAnnotation annotation) {
         ItemStack stack = new ItemStack(annotation.material());
         stack.setAmount(annotation.amount());
         stack.setDurability(annotation.durability());

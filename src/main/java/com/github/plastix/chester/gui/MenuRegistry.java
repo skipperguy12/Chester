@@ -8,7 +8,6 @@ import com.github.plastix.chester.utils.ItemUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -49,17 +48,17 @@ public class MenuRegistry {
         MenuInventory menuInv = (MenuInventory) clazz.getAnnotation(MenuInventory.class);
         Inventory inv = Bukkit.createInventory(null, menuInv.slots(), menuInv.name());
         for (int i = 0; i < inv.getSize(); i++)
-            inv.setItem(i, ItemUtils.annotationToBukkit(menuInv.filler()));
+            inv.setItem(i, ItemUtils.annotationToItemStack(menuInv.filler()));
         for (Method m : loadedMenus.get(clazz)) {
             MenuItem menuItem = m.getAnnotation(MenuItem.class);
-            ItemStack item = ItemUtils.annotationToBukkit(menuItem.item());
+            ItemStack item = ItemUtils.annotationToItemStack(menuItem.item());
             inv.setItem(menuItem.slot(), item);
         }
         if (clazz.isAnnotationPresent(IgnoreSlots.class)){
             IgnoreSlots ignoreSlots = (IgnoreSlots) clazz.getAnnotation(IgnoreSlots.class);
             if (ignoreSlots.slots().length == ignoreSlots.items().length) {
                 for (int i = 0; i < ignoreSlots.slots().length; i++) {
-                    inv.setItem(ignoreSlots.slots()[i], ItemUtils.annotationToBukkit(ignoreSlots.items()[i]));
+                    inv.setItem(ignoreSlots.slots()[i], ItemUtils.annotationToItemStack(ignoreSlots.items()[i]));
                 }
             }
         }
