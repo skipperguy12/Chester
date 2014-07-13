@@ -1,4 +1,4 @@
-package com.github.plastix.chester.gui;
+package com.github.plastix.chester.gui.annotation;
 
 import org.bukkit.Material;
 

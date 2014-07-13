@@ -1,5 +1,8 @@
 package com.github.plastix.chester.gui;
 
+import com.github.plastix.chester.gui.annotation.MenuInventory;
+import com.github.plastix.chester.gui.annotation.MenuItem;
+import com.github.plastix.chester.gui.annotation.NestedMenu;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;

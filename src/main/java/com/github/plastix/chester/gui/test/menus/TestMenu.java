@@ -2,6 +2,9 @@ package com.github.plastix.chester.gui.test.menus;
 
 import com.github.plastix.chester.ChesterPlayer;
 import com.github.plastix.chester.gui.*;
+import com.github.plastix.chester.gui.annotation.MenuInventory;
+import com.github.plastix.chester.gui.annotation.MenuItem;
+import com.github.plastix.chester.gui.annotation.NestedMenu;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 

@@ -1,5 +1,6 @@
-package com.github.plastix.chester.gui;
+package com.github.plastix.chester.gui.annotation;
 
+import com.github.plastix.chester.gui.Menu;
 import org.bukkit.Material;
 
 import java.lang.annotation.Retention;
@@ -9,6 +10,8 @@ import java.lang.annotation.RetentionPolicy;
 public @interface MenuInventory {
 
     int slots();
+
+    int[] ignoredSlots() default {};
 
     String name() default "Menu";
 
