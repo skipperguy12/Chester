@@ -33,8 +33,7 @@ public class MenuManager {
 
     //The menu must have been opened already for this to work
     public void setPreviouslyOpenedActiveMenu(Class clazz) {
-        if (hasMenu(clazz))
-            setActiveMenu(getMenu(clazz));
+        if (hasMenu(clazz)) setActiveMenu(getMenu(clazz));
     }
 
     private Menu getMenu(Class clazz) {

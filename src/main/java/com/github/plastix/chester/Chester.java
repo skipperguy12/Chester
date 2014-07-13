@@ -1,5 +1,6 @@
 package com.github.plastix.chester;
 
+import com.github.plastix.chester.command.ChesterParentCommand;
 import com.github.plastix.chester.gui.MenuRegistry;
 import com.github.plastix.chester.gui.listener.MenuListener;
 import com.github.plastix.chester.gui.test.command.TestCommand;
@@ -79,7 +80,8 @@ public class Chester extends JavaPlugin {
         };
         CommandsManagerRegistration cmdRegister = new CommandsManagerRegistration(this, this.commands);
         //Register your commands here
-        cmdRegister.register(TestCommand.class);
+        cmdRegister.register(TestCommand.class); // DEBUG GUI
+        cmdRegister.register(ChesterParentCommand.class);
     }
 
     // Passes commands from Bukkit to sk89q
