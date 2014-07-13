@@ -16,6 +16,8 @@ public @interface MenuItem {
 
     String[] lore() default {};
 
+    int amount() default 1;
+
     short durability() default 0;
 
 }
