@@ -56,8 +56,7 @@ public class MenuListener implements Listener {
         public MenuOpener(ChesterPlayer player, Class menuClass){
             this.player = player;
             this.menuClass = menuClass;
-            player.getBukkit().sendMessage(menuClass.toString());
-            runTaskLater(Chester.get(), 5);
+            runTaskLater(Chester.get(), 1);
         }
 
         @Override
