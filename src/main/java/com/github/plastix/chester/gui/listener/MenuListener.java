@@ -21,10 +21,12 @@ public class MenuListener implements Listener {
         ChesterPlayer player = ChesterPlayerManager.getPlayer((Player) e.getWhoClicked());
         MenuManager manager = player.getMenuManager();
         if (manager.getCurrentMenu() != null && manager.getCurrentMenu().getInventory().getName().equals(e.getInventory().getName())){
-            e.setCancelled(true);
+            if(e.getRawSlot() < manager.getCurrentMenu().getInventory().getSize()) {
+                e.setCancelled(true);
+            }
             for (Method m : MenuRegistry.getLoadedMenus().get(manager.getCurrentMenu().getClass())){
                 MenuItem menuItem = m.getAnnotation(MenuItem.class);
-                if (e.getSlot() == menuItem.slot())
+                if (e.getRawSlot() == menuItem.slot())
                     try {
                         m.invoke(manager.getCurrentMenu(), player);
                         return;
