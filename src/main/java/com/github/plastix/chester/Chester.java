@@ -3,6 +3,7 @@ package com.github.plastix.chester;
 import com.github.plastix.chester.command.ChesterParentCommand;
 import com.github.plastix.chester.gui.MenuRegistry;
 import com.github.plastix.chester.gui.listener.MenuListener;
+import com.github.plastix.chester.gui.replace.ReplaceMenu;
 import com.github.plastix.chester.gui.test.command.TestCommand;
 import com.github.plastix.chester.gui.test.menus.TestMenu;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
@@ -50,6 +51,7 @@ public class Chester extends JavaPlugin {
 
     private void registerMenus() {
         MenuRegistry.addMenu(TestMenu.class);
+        MenuRegistry.addMenu(ReplaceMenu.class);
     }
 
     public void onDisable() {

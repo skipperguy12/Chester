@@ -14,8 +14,7 @@ import org.bukkit.inventory.Inventory;
 
 @MenuInventory(
     slots = 27,
-    name = "Replace Menu",
-    filler = Material.AIR
+    name = "Replace Menu"
 )
 @IgnoreSlots(slots = {12, 14}, materials = {Material.PAPER, Material.PAPER})
 @NestedMenu(
