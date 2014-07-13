@@ -14,7 +14,8 @@ public @interface MenuItem {
 
     String name();
 
-    String[] lore();
+    String[] lore() default {};
 
+    short durability() default 0;
 
 }
