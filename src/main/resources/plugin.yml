@@ -4,3 +4,4 @@ description: ${description}
 authors: [skipperguy12, Plastix]
 main: ${plugin.mainClass}
 prefix: ${plugin.prefix}
+depend: [WorldEdit]
