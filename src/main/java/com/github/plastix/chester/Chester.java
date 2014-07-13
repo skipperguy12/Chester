@@ -47,7 +47,6 @@ public class Chester extends JavaPlugin {
 
     private void registerMenus() {
         MenuRegistry.addMenu(TestMenu.class);
-        MenuRegistry.addMenu(TestMenu.TestSubMenu.class);
     }
 
     public void onDisable() {

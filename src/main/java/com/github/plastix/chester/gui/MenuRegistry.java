@@ -7,6 +7,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -16,24 +17,34 @@ public class MenuRegistry {
 
     private static Map<Class<? extends Menu>, List<Method>> loadedMenus = Maps.newHashMap();
 
-    public static void addMenu(Class<? extends Menu> clazz){
+    public static void addMenu(Class<? extends Menu> clazz) {
         List<Method> methods = Lists.newArrayList();
         for (Method m : clazz.getDeclaredMethods()) {
-            if (m.isAnnotationPresent(MenuItem.class)){
+            if (m.isAnnotationPresent(MenuItem.class)) {
                 methods.add(m);
+            }
+        }
+
+        // If the class to add has a nested annotation
+        if (clazz.isAnnotationPresent(NestedMenu.class)) {
+            Annotation annotation = clazz.getAnnotation(NestedMenu.class);
+            NestedMenu nestedAnnotation = (NestedMenu) annotation;
+            // iterate the array of classes and register them as well
+            for (Class clazz0 : nestedAnnotation.value()) {
+                addMenu(clazz0);
             }
         }
         loadedMenus.put(clazz, methods);
     }
 
-    public static Map<Class<? extends Menu>, List<Method>> getLoadedMenus(){
+    public static Map<Class<? extends Menu>, List<Method>> getLoadedMenus() {
         return loadedMenus;
     }
 
-    public static Inventory generateFreshMenu(Class clazz, int size, String name, ItemStack filler){
+    public static Inventory generateFreshMenu(Class clazz, int size, String name, ItemStack filler) {
         Inventory inv = Bukkit.createInventory(null, size, name);
         for (int i = 0; i < inv.getSize(); i++) inv.setItem(i, filler);
-        for (Method m : loadedMenus.get(clazz)){
+        for (Method m : loadedMenus.get(clazz)) {
             MenuItem menuItem = m.getAnnotation(MenuItem.class);
             ItemStack item = new ItemStack(menuItem.material());
             ItemMeta meta = item.getItemMeta();
