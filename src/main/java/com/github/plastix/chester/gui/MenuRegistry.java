@@ -54,7 +54,7 @@ public class MenuRegistry {
             inv.setItem(i, ItemUtils.getNamedItemStack(menuInv.filler(), 1, ChatColor.RESET + "You cannot click here!"));
         for (Method m : loadedMenus.get(clazz)) {
             MenuItem menuItem = m.getAnnotation(MenuItem.class);
-            inv.setItem(menuItem.slot(), ItemUtils.getNamedItemStack(menuItem.material(), menuItem.amount(), menuItem.name(), Arrays.asList(menuItem.lore())));
+            inv.setItem(menuItem.slot(), ItemUtils.getNamedItemStack(menuItem.material(), menuItem.durability(), menuItem.amount(), menuItem.name(), Arrays.asList(menuItem.lore())));
         }
         if (clazz.isAnnotationPresent(IgnoreSlots.class)){
             IgnoreSlots ignoreSlots = (IgnoreSlots) clazz.getAnnotation(IgnoreSlots.class);
