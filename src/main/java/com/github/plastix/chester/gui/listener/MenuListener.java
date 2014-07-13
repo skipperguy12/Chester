@@ -13,6 +13,7 @@ import com.google.common.collect.Lists;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -38,6 +39,8 @@ public class MenuListener implements Listener {
                 }
             }else
                 cancel = false;
+            if(e.getClick() == ClickType.SHIFT_LEFT || e.getClick() == ClickType.SHIFT_RIGHT || e.getClick() == ClickType.DOUBLE_CLICK)
+                cancel = true;
             e.setCancelled(cancel);
             for (Method m : MenuRegistry.getLoadedMenus().get(manager.getCurrentMenu().getClass())) {
                 MenuItem menuItem = m.getAnnotation(MenuItem.class);
