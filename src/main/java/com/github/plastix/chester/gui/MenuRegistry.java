@@ -4,9 +4,11 @@ import com.github.plastix.chester.gui.annotation.IgnoreSlots;
 import com.github.plastix.chester.gui.annotation.MenuInventory;
 import com.github.plastix.chester.gui.annotation.MenuItem;
 import com.github.plastix.chester.gui.annotation.NestedMenu;
+import com.github.plastix.chester.utils.ItemUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -48,15 +50,11 @@ public class MenuRegistry {
     public static Inventory generateFreshMenu(Class clazz) {
         MenuInventory menuInv = (MenuInventory) clazz.getAnnotation(MenuInventory.class);
         Inventory inv = Bukkit.createInventory(null, menuInv.slots(), menuInv.name());
-        for (int i = 0; i < inv.getSize(); i++) inv.setItem(i, new ItemStack(menuInv.filler()));
+        for (int i = 0; i < inv.getSize(); i++)
+            inv.setItem(i, ItemUtils.getNamedItemStack(menuInv.filler(), 1, ChatColor.RESET + "You cannot click here!"));
         for (Method m : loadedMenus.get(clazz)) {
             MenuItem menuItem = m.getAnnotation(MenuItem.class);
-            ItemStack item = new ItemStack(menuItem.material());
-            ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(menuItem.name());
-            meta.setLore(Arrays.asList(menuItem.lore()));
-            item.setItemMeta(meta);
-            inv.setItem(menuItem.slot(), item);
+            inv.setItem(menuItem.slot(), ItemUtils.getNamedItemStack(menuItem.material(), 1, menuItem.name(), Arrays.asList(menuItem.lore())));
         }
         if (clazz.isAnnotationPresent(IgnoreSlots.class)){
             IgnoreSlots ignoreSlots = (IgnoreSlots) clazz.getAnnotation(IgnoreSlots.class);
