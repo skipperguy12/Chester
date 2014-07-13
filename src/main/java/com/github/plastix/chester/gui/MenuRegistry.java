@@ -11,11 +11,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -51,16 +49,17 @@ public class MenuRegistry {
         MenuInventory menuInv = (MenuInventory) clazz.getAnnotation(MenuInventory.class);
         Inventory inv = Bukkit.createInventory(null, menuInv.slots(), menuInv.name());
         for (int i = 0; i < inv.getSize(); i++)
-            inv.setItem(i, ItemUtils.getNamedItemStack(menuInv.filler(), 1, ChatColor.RESET + "You cannot click here!"));
+            inv.setItem(i, ItemUtils.annotationToBukkit(menuInv.filler()));
         for (Method m : loadedMenus.get(clazz)) {
             MenuItem menuItem = m.getAnnotation(MenuItem.class);
-            inv.setItem(menuItem.slot(), ItemUtils.getNamedItemStack(menuItem.material(), menuItem.durability(), menuItem.amount(), menuItem.name(), Arrays.asList(menuItem.lore())));
+            ItemStack item = ItemUtils.annotationToBukkit(menuItem.item());
+            inv.setItem(menuItem.slot(), item);
         }
         if (clazz.isAnnotationPresent(IgnoreSlots.class)){
             IgnoreSlots ignoreSlots = (IgnoreSlots) clazz.getAnnotation(IgnoreSlots.class);
-            if (ignoreSlots.slots().length == ignoreSlots.materials().length) {
+            if (ignoreSlots.slots().length == ignoreSlots.items().length) {
                 for (int i = 0; i < ignoreSlots.slots().length; i++) {
-                    inv.setItem(ignoreSlots.slots()[i], new ItemStack(ignoreSlots.materials()[i]));
+                    inv.setItem(ignoreSlots.slots()[i], ItemUtils.annotationToBukkit(ignoreSlots.items()[i]));
                 }
             }
         }

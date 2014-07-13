@@ -1,7 +1,5 @@
 package com.github.plastix.chester.gui.annotation;
 
-import org.bukkit.Material;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -10,14 +8,6 @@ public @interface MenuItem {
 
     int slot();
 
-    Material material();
-
-    String name();
-
-    String[] lore() default {};
-
-    int amount() default 1;
-
-    short durability() default 0;
+    ItemStackAnnotation item();
 
 }

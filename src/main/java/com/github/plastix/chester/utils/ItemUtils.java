@@ -1,10 +1,13 @@
 package com.github.plastix.chester.utils;
 
+import com.github.plastix.chester.Chester;
+import com.github.plastix.chester.gui.annotation.ItemStackAnnotation;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -89,5 +92,19 @@ public class ItemUtils {
      */
     public static ItemStack getNamedItemStack(ItemStack item, String name) {
         return getNamedItemStack(item, name, new ArrayList<String>());
+    }
+
+    public static ItemStack annotationToBukkit(ItemStackAnnotation annotation) {
+        ItemStack stack = new ItemStack(annotation.material());
+        stack.setAmount(annotation.amount());
+        stack.setDurability(annotation.durability());
+
+        ItemMeta meta = Chester.get().getServer().getItemFactory().getItemMeta(annotation.material());
+        if (!annotation.name().equals("")) meta.setDisplayName(annotation.name());
+        String[] emptyArray = {}; // Can't put array initializer's in if's
+        if (annotation.lore() != emptyArray) meta.setLore(Arrays.asList(annotation.lore()));
+
+        stack.setItemMeta(meta);
+        return stack;
     }
 }

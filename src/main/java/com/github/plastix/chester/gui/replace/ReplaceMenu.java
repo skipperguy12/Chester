@@ -3,10 +3,7 @@ package com.github.plastix.chester.gui.replace;
 import com.github.plastix.chester.ChesterPlayer;
 import com.github.plastix.chester.gui.Menu;
 import com.github.plastix.chester.gui.MenuManager;
-import com.github.plastix.chester.gui.annotation.IgnoreSlots;
-import com.github.plastix.chester.gui.annotation.MenuInventory;
-import com.github.plastix.chester.gui.annotation.MenuItem;
-import com.github.plastix.chester.gui.annotation.NestedMenu;
+import com.github.plastix.chester.gui.annotation.*;
 import com.github.plastix.chester.gui.replace.submenus.ContainerFilterMenu;
 import com.github.plastix.chester.gui.replace.submenus.ItemFilterMenu;
 import org.bukkit.Material;
@@ -16,7 +13,17 @@ import org.bukkit.inventory.Inventory;
     slots = 27,
     name = "§3Replace Menu"
 )
-@IgnoreSlots(slots = {12, 14}, materials = {Material.PAPER, Material.PAPER})
+@IgnoreSlots(
+    slots = {12, 14},
+    items = {
+        @ItemStackAnnotation(
+            material = Material.PAPER,
+            name = "Item to Replace"),
+        @ItemStackAnnotation(
+            material = Material.PAPER,
+            name = "New Item")
+    }
+)
 @NestedMenu(
     {
         ContainerFilterMenu.class,
@@ -31,8 +38,10 @@ public class ReplaceMenu extends Menu {
 
     @MenuItem(
         slot = 0,
-        name = "§b§lItem Filters",
-        material = Material.HOPPER
+        item = @ItemStackAnnotation(
+                material = Material.ITEM_FRAME,
+                name = "Item Filters"
+        )
     )
     public void itemFilterMenu(ChesterPlayer player) {
         player.setActiveMenu(new ItemFilterMenu(manager, null));
@@ -40,8 +49,10 @@ public class ReplaceMenu extends Menu {
 
     @MenuItem(
         slot = 1,
-        name = "§6§lContainer Filters",
-        material = Material.CHEST
+        item = @ItemStackAnnotation(
+                material = Material.CHEST,
+                name = "Container Filters"
+        )
     )
     public void containerFilterMenu(ChesterPlayer player) {
         player.setActiveMenu(new ContainerFilterMenu(manager, null));
@@ -49,9 +60,11 @@ public class ReplaceMenu extends Menu {
 
     @MenuItem(
         slot = 8,
-        name = "§a§lSave & Apply",
-        material = Material.WOOL,
-        durability = 5
+        item = @ItemStackAnnotation(
+                material = Material.WOOL,
+                name = "Save & Apply",
+                durability = 5
+        )
     )
     public void saveAndApply(ChesterPlayer player) {
         player.resetManager();

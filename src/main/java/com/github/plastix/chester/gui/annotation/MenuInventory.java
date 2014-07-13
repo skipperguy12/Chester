@@ -15,6 +15,6 @@ public @interface MenuInventory {
 
     Class<? extends Menu> onClose() default Menu.class;
 
-    Material filler() default Material.ENDER_PORTAL;
+    ItemStackAnnotation filler() default @ItemStackAnnotation(material = Material.ENDER_PORTAL, name = " ");
 
 }
