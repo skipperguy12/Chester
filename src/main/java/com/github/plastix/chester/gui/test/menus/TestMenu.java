@@ -14,7 +14,7 @@ import org.bukkit.inventory.Inventory;
 public class TestMenu extends Menu {
 
     public TestMenu(MenuManager manager, Inventory inv) {
-        super(manager, inv, "Test Main Menu");
+        super(manager, inv);
     }
 
     @MenuItem(slot = 5, name = "TestItem1", lore = "TestLore1", material = Material.NETHER_STAR)
@@ -28,7 +28,7 @@ public class TestMenu extends Menu {
     public static class TestSubMenu extends Menu {
 
         public TestSubMenu(MenuManager manager, Inventory inv) {
-            super(manager, inv, "Test Sub Menu");
+            super(manager, inv);
         }
 
         @MenuItem(slot = 6, name = "TestSubItem1", lore = "TestSubLore1", material = Material.NETHER_STAR)

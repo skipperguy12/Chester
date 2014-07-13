@@ -26,7 +26,7 @@ public class MenuManager {
             currentMenu = getMenu(menu.getClass());
         } else {
             currentMenu = menu;
-            currentMenu.setInventory(MenuRegistry.generateFreshMenu(menu.getClass(), menu.getSize(), menu.getTitle()));
+            currentMenu.setInventory(MenuRegistry.generateFreshMenu(menu.getClass()));
             menus.add(currentMenu);
         }
     }

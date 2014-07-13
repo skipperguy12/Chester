@@ -6,35 +6,20 @@ import org.bukkit.inventory.ItemStack;
 
 public class Menu {
     private final static ItemStack DEFAULT_EMPTY_SLOT = new ItemStack(119, 1);
-    private final static Integer DEFAULT_INVENTORY_SIZE = 27;
 
     protected Inventory inv;
-    protected final String title;
-    protected final int size;
     protected final ItemStack emptySlot;
     protected MenuManager manager;
 
-    public Menu(MenuManager manager, Inventory inv, String title, int size, ItemStack emptySlot) {
+    public Menu(MenuManager manager, Inventory inv, ItemStack emptySlot) {
         this.manager = manager;
         this.inv = inv;
-        this.title = title;
-        this.size = size;
         this.emptySlot = emptySlot;
     }
 
-    public Menu(MenuManager manager, Inventory inv, String title, int size) {
+    public Menu(MenuManager manager, Inventory inv) {
         this.manager = manager;
         this.inv = inv;
-        this.title = title;
-        this.size = DEFAULT_INVENTORY_SIZE;
-        this.emptySlot = DEFAULT_EMPTY_SLOT;
-    }
-
-    public Menu(MenuManager manager, Inventory inv, String title) {
-        this.manager = manager;
-        this.inv = inv;
-        this.title = title;
-        this.size = DEFAULT_INVENTORY_SIZE;
         this.emptySlot = DEFAULT_EMPTY_SLOT;
     }
 
@@ -42,8 +27,6 @@ public class Menu {
         this.manager = manager;
         this.inv = inv;
         this.emptySlot = new ItemStack(emptySlot);
-        title = null; //Not needed
-        size = 0; //Not needed
     }
 
     public void setInventory(Inventory inv) {
@@ -52,14 +35,6 @@ public class Menu {
 
     public Inventory getInventory() {
         return this.inv;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getSize() {
-        return size;
     }
 
     public ItemStack getEmptySlot() {
