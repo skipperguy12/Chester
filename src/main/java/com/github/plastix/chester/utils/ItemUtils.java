@@ -94,6 +94,12 @@ public class ItemUtils {
         return getNamedItemStack(item, name, new ArrayList<String>());
     }
 
+    /**
+     * Creates an {@link org.bukkit.inventory.ItemStack} with data from an {@link com.github.plastix.chester.gui.annotation.ItemStackAnnotation}
+     *
+     * @param annotation Annotation to be converted.
+     * @return A formatted {@link org.bukkit.inventory.ItemStack} with data from the {@link com.github.plastix.chester.gui.annotation.ItemStackAnnotation}
+     */
     public static ItemStack annotationToBukkit(ItemStackAnnotation annotation) {
         ItemStack stack = new ItemStack(annotation.material());
         stack.setAmount(annotation.amount());
