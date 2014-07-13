@@ -1,5 +1,9 @@
 package com.github.plastix.chester;
 
+import com.github.plastix.chester.gui.MenuRegistry;
+import com.github.plastix.chester.gui.listener.MenuListener;
+import com.github.plastix.chester.gui.test.command.TestCommand;
+import com.github.plastix.chester.gui.test.menus.TestMenu;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
 import org.bukkit.Bukkit;
@@ -36,8 +40,14 @@ public class Chester extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        registerMenus();
         setupCommands();
         registerListeners();
+    }
+
+    private void registerMenus() {
+        MenuRegistry.addMenu(TestMenu.class);
+        MenuRegistry.addMenu(TestMenu.TestSubMenu.class);
     }
 
     public void onDisable() {
@@ -48,6 +58,7 @@ public class Chester extends JavaPlugin {
      * Registers Listeners used by DynamicDatabasePlugin
      */
     private void registerListeners() {
+        registerEvents(new MenuListener());
     }
 
     /**
@@ -69,6 +80,7 @@ public class Chester extends JavaPlugin {
         };
         CommandsManagerRegistration cmdRegister = new CommandsManagerRegistration(this, this.commands);
         //Register your commands here
+        cmdRegister.register(TestCommand.class);
     }
 
     // Passes commands from Bukkit to sk89q

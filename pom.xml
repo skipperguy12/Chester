@@ -32,6 +32,10 @@
             <id>bukkit-repo</id>
             <url>http://repo.bukkit.org/content/groups/public</url>
         </repository>
+        <repository>
+            <id>repo.oc.tc</id>
+            <url>http://repo.oc.tc/content/repositories/snapshots/</url>
+        </repository>
     </repositories>
 
     <build>
@@ -102,6 +106,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Plugin properties -->
         <plugin.prefix>Chester</plugin.prefix>
-        <plugin.mainClass>com.github.plastix.chester</plugin.mainClass>
+        <plugin.mainClass>com.github.plastix.chester.Chester</plugin.mainClass>
     </properties>
 </project>

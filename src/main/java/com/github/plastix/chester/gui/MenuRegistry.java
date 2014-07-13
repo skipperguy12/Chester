@@ -18,9 +18,10 @@ public class MenuRegistry {
 
     public static void addMenu(Class<? extends Menu> clazz){
         List<Method> methods = Lists.newArrayList();
-        for (Method m : clazz.getMethods()) {
-            if (m.isAnnotationPresent(MenuItem.class))
+        for (Method m : clazz.getDeclaredMethods()) {
+            if (m.isAnnotationPresent(MenuItem.class)){
                 methods.add(m);
+            }
         }
         loadedMenus.put(clazz, methods);
     }
