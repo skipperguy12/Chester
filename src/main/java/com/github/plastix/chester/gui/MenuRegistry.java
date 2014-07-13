@@ -1,5 +1,6 @@
 package com.github.plastix.chester.gui;
 
+import com.github.plastix.chester.gui.annotation.IgnoreSlots;
 import com.github.plastix.chester.gui.annotation.MenuInventory;
 import com.github.plastix.chester.gui.annotation.MenuItem;
 import com.github.plastix.chester.gui.annotation.NestedMenu;
@@ -56,6 +57,14 @@ public class MenuRegistry {
             meta.setLore(Arrays.asList(menuItem.lore()));
             item.setItemMeta(meta);
             inv.setItem(menuItem.slot(), item);
+        }
+        if (clazz.isAnnotationPresent(IgnoreSlots.class)){
+            IgnoreSlots ignoreSlots = (IgnoreSlots) clazz.getAnnotation(IgnoreSlots.class);
+            if (ignoreSlots.slots().length == ignoreSlots.materials().length) {
+                for (int i = 0; i < ignoreSlots.slots().length; i++) {
+                    inv.setItem(ignoreSlots.slots()[i], new ItemStack(ignoreSlots.materials()[i]));
+                }
+            }
         }
         return inv;
     }

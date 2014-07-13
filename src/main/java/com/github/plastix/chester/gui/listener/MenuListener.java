@@ -6,6 +6,7 @@ import com.github.plastix.chester.ChesterPlayerManager;
 import com.github.plastix.chester.gui.Menu;
 import com.github.plastix.chester.gui.MenuManager;
 import com.github.plastix.chester.gui.MenuRegistry;
+import com.github.plastix.chester.gui.annotation.IgnoreSlots;
 import com.github.plastix.chester.gui.annotation.MenuInventory;
 import com.github.plastix.chester.gui.annotation.MenuItem;
 import com.google.common.collect.Lists;
@@ -25,9 +26,19 @@ public class MenuListener implements Listener {
     public void onClick(InventoryClickEvent e) {
         ChesterPlayer player = ChesterPlayerManager.getPlayer((Player) e.getWhoClicked());
         MenuManager manager = player.getMenuManager();
+        boolean cancel = true;
         if (manager.getCurrentMenu() != null && manager.getCurrentMenu().getInventory().getName().equals(e.getInventory().getName())) {
             MenuInventory menuInventory = player.getMenuManager().getCurrentMenu().getClass().getAnnotation(MenuInventory.class);
-            e.setCancelled(e.getRawSlot() >= e.getInventory().getSize() || (menuInventory.ignoredSlots() != null && Lists.newArrayList(menuInventory.ignoredSlots()).contains(e.getRawSlot())));
+            if (e.getRawSlot() < e.getInventory().getSize()){
+                if (player.getMenuManager().getCurrentMenu().getClass().isAnnotationPresent(IgnoreSlots.class)){
+                    IgnoreSlots ignoreSlots = player.getMenuManager().getCurrentMenu().getClass().getAnnotation(IgnoreSlots.class);
+                    for (int i : ignoreSlots.slots())
+                        if (i == e.getRawSlot())
+                            cancel = false;
+                }
+            }else
+                cancel = false;
+            e.setCancelled(cancel);
             for (Method m : MenuRegistry.getLoadedMenus().get(manager.getCurrentMenu().getClass())) {
                 MenuItem menuItem = m.getAnnotation(MenuItem.class);
                 if (e.getSlot() == menuItem.slot()) try {

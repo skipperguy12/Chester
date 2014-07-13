@@ -11,8 +11,6 @@ public @interface MenuInventory {
 
     int slots();
 
-    int[] ignoredSlots() default {};
-
     String name() default "Menu";
 
     Class<? extends Menu> onClose() default Menu.class;
