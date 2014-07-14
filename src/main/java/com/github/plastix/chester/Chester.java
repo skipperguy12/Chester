@@ -1,14 +1,12 @@
 package com.github.plastix.chester;
 
 import com.github.plastix.chester.command.ChesterParentCommand;
-import com.github.plastix.chester.gui.MenuRegistry;
-import com.github.plastix.chester.gui.listener.MenuListener;
 import com.github.plastix.chester.gui.replace.ReplaceMenu;
-import com.github.plastix.chester.gui.test.command.TestCommand;
-import com.github.plastix.chester.gui.test.menus.TestMenu;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import net.njay.MenuFramework;
+import net.njay.MenuRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -44,14 +42,13 @@ public class Chester extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        registerMenus();
+        setupMenus();
         setupCommands();
         registerListeners();
     }
 
-    private void registerMenus() {
-        MenuRegistry.addMenu(TestMenu.class);
-        MenuRegistry.addMenu(ReplaceMenu.class);
+    private void setupMenus() {
+        MenuFramework.enable(new MenuRegistry(instance, ReplaceMenu.class), new ChesterPlayerManager());
     }
 
     public void onDisable() {
@@ -62,7 +59,7 @@ public class Chester extends JavaPlugin {
      * Registers Listeners used by DynamicDatabasePlugin
      */
     private void registerListeners() {
-        registerEvents(new MenuListener());
+
     }
 
     /**
@@ -102,7 +99,6 @@ public class Chester extends JavaPlugin {
         };
         CommandsManagerRegistration cmdRegister = new CommandsManagerRegistration(this, this.commands);
         //Register your commands here
-        cmdRegister.register(TestCommand.class); // DEBUG GUI
         cmdRegister.register(ChesterParentCommand.class);
     }
 

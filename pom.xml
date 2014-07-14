@@ -11,6 +11,12 @@
     <description>A Bukkit plugin for batch editing chests in-game</description>
 
     <dependencies>
+        <!-- custom command framework, available here: https://github.com/gcflames5/menu-framework -->
+        <dependency>
+            <groupId>net.njay</groupId>
+            <artifactId>menu-framework</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <dependency>
             <groupId>com.sk89q</groupId>
             <artifactId>command-framework-bukkit</artifactId>

@@ -1,7 +1,7 @@
 package com.github.plastix.chester.utils;
 
 import com.github.plastix.chester.Chester;
-import com.github.plastix.chester.gui.annotation.ItemStackAnnotation;
+import net.njay.annotation.ItemStackAnnotation;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -24,7 +24,7 @@ public class ItemUtils {
      * @param lore   lore of the ItemStack
      * @return ItemStack with params
      */
-    public static ItemStack getNamedItemStack(Material type, short durability,  int amount, String name, List<String> lore) {
+    public static ItemStack getNamedItemStack(Material type, short durability, int amount, String name, List<String> lore) {
         ItemStack item = new ItemStack(type, amount);
         item.setDurability(durability);
         ItemMeta itemMeta = item.getItemMeta();
@@ -95,10 +95,10 @@ public class ItemUtils {
     }
 
     /**
-     * Creates an {@link org.bukkit.inventory.ItemStack} with data from an {@link com.github.plastix.chester.gui.annotation.ItemStackAnnotation}
+     * Creates an {@link org.bukkit.inventory.ItemStack} with data from an {@link ItemStackAnnotation}
      *
      * @param annotation Annotation to be converted.
-     * @return A formatted {@link org.bukkit.inventory.ItemStack} with data from the {@link com.github.plastix.chester.gui.annotation.ItemStackAnnotation}
+     * @return A formatted {@link org.bukkit.inventory.ItemStack} with data from the {@link ItemStackAnnotation}
      */
     public static ItemStack annotationToItemStack(ItemStackAnnotation annotation) {
         ItemStack stack = new ItemStack(annotation.material());

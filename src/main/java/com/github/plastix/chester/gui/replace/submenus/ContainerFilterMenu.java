@@ -1,9 +1,9 @@
 package com.github.plastix.chester.gui.replace.submenus;
 
-import com.github.plastix.chester.gui.Menu;
-import com.github.plastix.chester.gui.MenuManager;
-import com.github.plastix.chester.gui.annotation.MenuInventory;
 import com.github.plastix.chester.gui.replace.ReplaceMenu;
+import net.njay.Menu;
+import net.njay.MenuManager;
+import net.njay.annotation.MenuInventory;
 import org.bukkit.inventory.Inventory;
 
 @MenuInventory(

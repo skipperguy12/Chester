@@ -1,11 +1,11 @@
 package com.github.plastix.chester.gui.replace;
 
 import com.github.plastix.chester.ChesterPlayer;
-import com.github.plastix.chester.gui.Menu;
-import com.github.plastix.chester.gui.MenuManager;
-import com.github.plastix.chester.gui.annotation.*;
 import com.github.plastix.chester.gui.replace.submenus.ContainerFilterMenu;
 import com.github.plastix.chester.gui.replace.submenus.ItemFilterMenu;
+import net.njay.Menu;
+import net.njay.MenuManager;
+import net.njay.annotation.*;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 
@@ -39,8 +39,8 @@ public class ReplaceMenu extends Menu {
     @MenuItem(
         slot = 0,
         item = @ItemStackAnnotation(
-                material = Material.ITEM_FRAME,
-                name = "Item Filters"
+            material = Material.ITEM_FRAME,
+            name = "Item Filters"
         )
     )
     public void itemFilterMenu(ChesterPlayer player) {
@@ -50,8 +50,8 @@ public class ReplaceMenu extends Menu {
     @MenuItem(
         slot = 1,
         item = @ItemStackAnnotation(
-                material = Material.CHEST,
-                name = "Container Filters"
+            material = Material.CHEST,
+            name = "Container Filters"
         )
     )
     public void containerFilterMenu(ChesterPlayer player) {
@@ -61,9 +61,9 @@ public class ReplaceMenu extends Menu {
     @MenuItem(
         slot = 8,
         item = @ItemStackAnnotation(
-                material = Material.WOOL,
-                name = "Save & Apply",
-                durability = 5
+            material = Material.WOOL,
+            name = "Save & Apply",
+            durability = 5
         )
     )
     public void saveAndApply(ChesterPlayer player) {
