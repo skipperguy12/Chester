@@ -14,17 +14,19 @@ import org.bukkit.inventory.Inventory;
  */
 @MenuInventory(
     slots = 27,
-    name = "§3Replace Menu"
+    name = "§5Replace Menu"
 )
 @IgnoreSlots(
     slots = {12, 14},
     items = {
         @ItemStackAnnotation(
-            material = Material.PAPER,
-            name = "Item to Replace"),
+            material = Material.STAINED_GLASS_PANE,
+            durability = 14,
+            name = "§r§lItem to Replace"),
         @ItemStackAnnotation(
-            material = Material.PAPER,
-            name = "New Item")
+            material = Material.STAINED_GLASS_PANE,
+            durability = 5,
+            name = "§r§lNew Item")
     }
 )
 @NestedMenu(
@@ -49,8 +51,8 @@ public class ReplaceMenu extends Menu {
     @MenuItem(
         slot = 0,
         item = @ItemStackAnnotation(
-            material = Material.ITEM_FRAME,
-            name = "Item Filters"
+            material = Material.HOPPER,
+            name = "§b§lItem Filters"
         )
     )
     public void itemFilterMenu(ChesterPlayer player) {
@@ -62,7 +64,7 @@ public class ReplaceMenu extends Menu {
         slot = 1,
         item = @ItemStackAnnotation(
             material = Material.CHEST,
-            name = "Container Filters"
+            name = "§6§lContainer Filters"
         )
     )
     public void containerFilterMenu(ChesterPlayer player) {
@@ -74,12 +76,13 @@ public class ReplaceMenu extends Menu {
         slot = 8,
         item = @ItemStackAnnotation(
             material = Material.WOOL,
-            name = "Save & Apply",
+            name = "§a§lSave & Apply",
             durability = 5
         )
     )
     public void saveAndApply(ChesterPlayer player) {
         player.resetManager();
+        player.getBukkit().closeInventory();
     }
 
 

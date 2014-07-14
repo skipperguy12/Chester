@@ -11,7 +11,7 @@ import org.bukkit.inventory.Inventory;
  */
 @MenuInventory(
     slots = 27,
-    name = "§3Item Filters",
+    name = "§5Item Filters",
     onClose = ReplaceMenu.class
 )
 public class ItemFilterMenu extends Menu {
