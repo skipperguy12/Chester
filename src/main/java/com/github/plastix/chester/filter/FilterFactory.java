@@ -8,6 +8,10 @@ import org.bukkit.block.Furnace;
 import com.github.plastix.chester.filter.container.BlockClassFilter;
 import com.github.plastix.chester.filter.container.ChestFilter;
 import com.github.plastix.chester.filter.container.TrappedChestFilter;
+import org.bukkit.block.Hopper;
+import org.bukkit.entity.minecart.HopperMinecart;
+import org.bukkit.entity.minecart.PoweredMinecart;
+import org.bukkit.entity.minecart.StorageMinecart;
 
 public class FilterFactory {
 
@@ -23,6 +27,10 @@ public class FilterFactory {
         FURNACE,
         DROPPER,
         DISPENSER,
+        HOPPER,
+        CHEST_MINECART,
+        FURNACE_MINECART,
+        HOPPER_MINECART,
 
     }
 
@@ -50,6 +58,14 @@ public class FilterFactory {
                 return new BlockClassFilter(Dropper.class);
             case DISPENSER:
                 return new BlockClassFilter(Dispenser.class);
+            case HOPPER:
+                return new BlockClassFilter(Hopper.class);
+            case CHEST_MINECART:
+                return new BlockClassFilter(StorageMinecart.class);
+            case FURNACE_MINECART:
+                return new BlockClassFilter(PoweredMinecart.class);
+            case HOPPER_MINECART:
+                return new BlockClassFilter(HopperMinecart.class);
             default:
                 return null;
         }
