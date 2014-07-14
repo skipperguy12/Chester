@@ -10,6 +10,18 @@
     <name>Chester</name>
     <description>A Bukkit plugin for batch editing chests in-game</description>
 
+    <!-- Distribution Management -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>njay-deployment</id>
+            <url>http://repo.njay.net/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>njay-deployment</id>
+            <url>http://repo.njay.net/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <!-- custom menu framework, available here: https://github.com/gcflames5/menu-framework -->
         <dependency>
@@ -40,7 +52,12 @@
             <type>jar</type>
         </dependency>
     </dependencies>
+
     <repositories>
+        <repository>
+            <id>njay-repo</id>
+            <url>http://repo.njay.net/content/groups/public</url>
+        </repository>
         <repository>
             <id>sk89q-repo</id>
             <url>http://maven.sk89q.com/repo/</url>
