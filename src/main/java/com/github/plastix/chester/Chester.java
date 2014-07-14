@@ -56,7 +56,7 @@ public class Chester extends JavaPlugin {
     }
 
     /**
-     * Registers Listeners used by DynamicDatabasePlugin
+     * Registers Listeners used by Chester
      */
     private void registerListeners() {
 
@@ -90,6 +90,9 @@ public class Chester extends JavaPlugin {
         }
     }
 
+    /**
+     * Setup the Command Framework & register the command classes.
+     */
     private void setupCommands() {
         this.commands = new CommandsManager<CommandSender>() {
             @Override

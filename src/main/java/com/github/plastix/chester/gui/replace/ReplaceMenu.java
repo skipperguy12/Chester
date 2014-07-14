@@ -9,6 +9,9 @@ import net.njay.annotation.*;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 
+/**
+ * Class to represent the main replace menu.
+ */
 @MenuInventory(
     slots = 27,
     name = "§3Replace Menu"
@@ -32,10 +35,17 @@ import org.bukkit.inventory.Inventory;
 )
 public class ReplaceMenu extends Menu {
 
+    /**
+     * Constructor for a new ReplaceMenu from a {@link net.njay.MenuManager} and a {@link org.bukkit.inventory.Inventory}
+     *
+     * @param manager the inventory manager the menu is assigned to.
+     * @param inv the inventory for the menu to be placed in.
+     */
     public ReplaceMenu(MenuManager manager, Inventory inv) {
         super(manager, inv);
     }
 
+    /* Item Filter Menu */
     @MenuItem(
         slot = 0,
         item = @ItemStackAnnotation(
@@ -47,6 +57,7 @@ public class ReplaceMenu extends Menu {
         player.setActiveMenu(new ItemFilterMenu(manager, null));
     }
 
+    /* Container Filter Menu */
     @MenuItem(
         slot = 1,
         item = @ItemStackAnnotation(
@@ -58,6 +69,7 @@ public class ReplaceMenu extends Menu {
         player.setActiveMenu(new ContainerFilterMenu(manager, null));
     }
 
+    /* Save and close */
     @MenuItem(
         slot = 8,
         item = @ItemStackAnnotation(
