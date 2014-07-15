@@ -27,7 +27,7 @@
         <dependency>
             <groupId>net.njay</groupId>
             <artifactId>menu-framework</artifactId>
-            <version>1.0.6</version>
+            <version>1.0.8</version>
         </dependency>
         <dependency>
             <groupId>com.sk89q</groupId>

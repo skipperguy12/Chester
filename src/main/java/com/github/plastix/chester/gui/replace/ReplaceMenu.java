@@ -1,13 +1,22 @@
 package com.github.plastix.chester.gui.replace;
 
+import com.github.plastix.chester.Chester;
 import com.github.plastix.chester.ChesterPlayer;
+import com.github.plastix.chester.filter.Filter;
 import com.github.plastix.chester.gui.replace.submenus.ContainerFilterMenu;
 import com.github.plastix.chester.gui.replace.submenus.ItemFilterMenu;
+import com.github.plastix.chester.operations.ContainerReplaceOperation;
+import com.google.common.collect.Lists;
+import com.sk89q.minecraft.util.commands.ChatColor;
+import com.sk89q.minecraft.util.commands.CommandException;
+import com.sk89q.worldedit.bukkit.selections.Selection;
 import net.njay.Menu;
 import net.njay.MenuManager;
 import net.njay.annotation.*;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
+
+import java.util.List;
 
 /**
  * Class to represent the main replace menu.
@@ -41,7 +50,7 @@ public class ReplaceMenu extends Menu {
      * Constructor for a new ReplaceMenu from a {@link net.njay.MenuManager} and a {@link org.bukkit.inventory.Inventory}
      *
      * @param manager the inventory manager the menu is assigned to.
-     * @param inv the inventory for the menu to be placed in.
+     * @param inv     the inventory for the menu to be placed in.
      */
     public ReplaceMenu(MenuManager manager, Inventory inv) {
         super(manager, inv);
@@ -81,8 +90,30 @@ public class ReplaceMenu extends Menu {
         )
     )
     public void saveAndApply(ChesterPlayer player) {
-        player.resetManager();
-        player.getBukkit().closeInventory();
+        try {
+            Selection selection = Chester.get().getWorldEdit().getSelection(player.getBukkit());
+            if (selection == null) {
+                player.getBukkit().sendMessage(ChatColor.RED + "You must make a WorldEdit Selection first");
+                return;
+            }
+
+            List<Filter> filters = Lists.newArrayList();
+
+            if (player.getMenuManager().hasMenu(ItemFilterMenu.class))
+                filters.addAll(((ItemFilterMenu) player.getMenuManager().getMenu(ItemFilterMenu.class)).getFilters());
+
+            if (player.getMenuManager().hasMenu(ContainerFilterMenu.class))
+                filters.addAll(((ContainerFilterMenu) player.getMenuManager().getMenu(ContainerFilterMenu.class)).getFilters());
+
+            ContainerReplaceOperation operation = new ContainerReplaceOperation(getInventory(), filters.toArray(new Filter[filters.size()]));
+            operation.execute(selection);
+
+            player.resetManager();
+            player.getBukkit().closeInventory();
+
+        } catch (CommandException e) {
+            e.printStackTrace();
+        }
     }
 
 
