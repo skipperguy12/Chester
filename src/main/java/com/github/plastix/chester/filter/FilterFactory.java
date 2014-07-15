@@ -1,13 +1,12 @@
 package com.github.plastix.chester.filter;
 
+import com.github.plastix.chester.filter.container.BlockClassFilter;
+import com.github.plastix.chester.filter.container.ChestFilter;
+import com.github.plastix.chester.filter.container.TrappedChestFilter;
 import com.github.plastix.chester.filter.item.*;
 import org.bukkit.block.Dispenser;
 import org.bukkit.block.Dropper;
 import org.bukkit.block.Furnace;
-
-import com.github.plastix.chester.filter.container.BlockClassFilter;
-import com.github.plastix.chester.filter.container.ChestFilter;
-import com.github.plastix.chester.filter.container.TrappedChestFilter;
 import org.bukkit.block.Hopper;
 import org.bukkit.entity.minecart.HopperMinecart;
 import org.bukkit.entity.minecart.PoweredMinecart;
@@ -16,12 +15,17 @@ import org.bukkit.entity.minecart.StorageMinecart;
 public class FilterFactory {
 
     public enum FilterType {
+        //ITEMS:
+
         MATERIAL,
         NAME,
         LORE,
         AMOUNT,
         DURABILITY,
         ENCHANTMENT,
+
+        // CONTAINERS:
+
         CHEST,
         TRAPPED_CHEST,
         FURNACE,
@@ -35,7 +39,7 @@ public class FilterFactory {
     }
 
     public static Filter createFilter(FilterType type) {
-        switch(type){
+        switch (type) {
             case MATERIAL:
                 return new MaterialFilter();
             case NAME:

@@ -93,7 +93,10 @@ public class ReplaceMenu extends Menu {
         try {
             Selection selection = Chester.get().getWorldEdit().getSelection(player.getBukkit());
             if (selection == null) {
+                player.getBukkit().closeInventory();
                 player.getBukkit().sendMessage(ChatColor.RED + "You must make a WorldEdit Selection first");
+                player.getBukkit().sendMessage(ChatColor.DARK_PURPLE + "Your work has" + ChatColor.GOLD + " NOT" + ChatColor.DARK_PURPLE + " been lost");
+                player.getBukkit().sendMessage(ChatColor.DARK_PURPLE + "You can reopen your GUI after making the WorldEdit selection by using the following command: " + ChatColor.GOLD + "/chester replace");
                 return;
             }
 

@@ -10,8 +10,8 @@ import com.google.common.collect.Lists;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -27,12 +27,17 @@ public class ContainerReplaceOperation implements BlockOperation {
     public ContainerReplaceOperation(Inventory bukkitInventory, Filter... filters) {
         this.bukkitInventory = bukkitInventory;
 
+
         for (Filter f : filters) {
+            System.out.println(f.getClass().getSimpleName());
             if (f instanceof AbstractContainerFilter)
                 containerFilters.add((AbstractContainerFilter) f);
             else if (f instanceof AbstractItemFilter)
                 itemFilters.add((AbstractItemFilter) f);
         }
+
+        System.out.print(itemFilters.size());
+        System.out.print(containerFilters.size());
     }
 
     @Override
@@ -41,32 +46,37 @@ public class ContainerReplaceOperation implements BlockOperation {
 
         List<Block> blocks = RegionUtils.getRegionBlocks((CuboidSelection) region, containerFilters.toArray(new AbstractContainerFilter[containerFilters.size()]));
         for (Block block : blocks) {
-            Bukkit.getScheduler().runTaskLater(Chester.get(), new ChestReplaceRunnable(block, itemFilters, bukkitInventory.getItem(12), bukkitInventory.getItem(14)), 0);
+            Bukkit.getScheduler().runTaskLater(Chester.get(), new ContainerReplaceRunnable(block, itemFilters, bukkitInventory.getItem(12), bukkitInventory.getItem(14)), 0);
         }
     }
 
-    class ChestReplaceRunnable implements Runnable {
+    class ContainerReplaceRunnable implements Runnable {
         private Block block;
         private List<AbstractItemFilter> filters;
         private ItemStack replaceItem;
         private ItemStack newItem;
 
-        public ChestReplaceRunnable(Block blocks, List<AbstractItemFilter> filters, ItemStack replaceItem, ItemStack newItem) {
+        public ContainerReplaceRunnable(Block blocks, List<AbstractItemFilter> filters, ItemStack replaceItem, ItemStack newItem) {
             this.block = blocks;
             this.filters = filters;
-            this.replaceItem = newItem;
+            this.replaceItem = replaceItem;
             this.newItem = newItem;
         }
 
         @Override
         public void run() {
-            if (block.getType() == Material.CHEST || block.getType() == Material.TRAPPED_CHEST) {
-                Chest chest = (Chest) block;
+            BlockState bs = block.getState();
+            if (bs instanceof Chest) {
+                Chest chest = (Chest) bs;
                 for (int i = 0; i < chest.getInventory().getSize(); i++) {
-                    for (AbstractItemFilter filter : filters)
-                        if (!filter.query(chest.getBlockInventory().getItem(i), replaceItem))
+                    if (chest.getInventory().getItem(i) == null)
+                        continue;
+                    for (AbstractItemFilter filter : filters) {
+                        if (!filter.query(chest.getBlockInventory().getItem(i), replaceItem)) {
                             continue;
-                    chest.getInventory().setItem(i, newItem);
+                        }
+                        chest.getInventory().setItem(i, newItem);
+                    }
                 }
             }
         }

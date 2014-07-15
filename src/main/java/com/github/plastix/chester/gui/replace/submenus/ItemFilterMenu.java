@@ -1,6 +1,7 @@
 package com.github.plastix.chester.gui.replace.submenus;
 
 import com.github.plastix.chester.filter.Filter;
+import com.github.plastix.chester.filter.FilterFactory;
 import com.github.plastix.chester.gui.FilterMenu;
 import com.github.plastix.chester.gui.replace.ReplaceMenu;
 import net.njay.Menu;
@@ -8,6 +9,7 @@ import net.njay.MenuManager;
 import net.njay.annotation.MenuInventory;
 import org.bukkit.inventory.Inventory;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -32,6 +34,6 @@ public class ItemFilterMenu extends Menu implements FilterMenu {
 
     @Override
     public List<Filter> getFilters() {
-        return null; // TODO
+        return Arrays.asList(FilterFactory.createFilter(FilterFactory.FilterType.MATERIAL)); //TODO: Fetch from actual GUI, this is a dummy list
     }
 }
