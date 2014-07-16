@@ -3,6 +3,8 @@ package com.github.plastix.chester.gui.replace;
 import com.github.plastix.chester.Chester;
 import com.github.plastix.chester.ChesterPlayer;
 import com.github.plastix.chester.filter.Filter;
+import com.github.plastix.chester.filter.FilterFactory;
+import com.github.plastix.chester.filter.FilterType;
 import com.github.plastix.chester.gui.replace.submenus.ContainerFilterMenu;
 import com.github.plastix.chester.gui.replace.submenus.ItemFilterMenu;
 import com.github.plastix.chester.operations.ContainerReplaceOperation;
@@ -102,11 +104,17 @@ public class ReplaceMenu extends Menu {
 
             List<Filter> filters = Lists.newArrayList();
 
-            if (player.getMenuManager().hasMenu(ItemFilterMenu.class))
-                filters.addAll(((ItemFilterMenu) player.getMenuManager().getMenu(ItemFilterMenu.class)).getFilters());
+            if (player.getMenuManager().hasMenu(ItemFilterMenu.class)) {
+                List<FilterType.ITEM> enabledFilters = ((ItemFilterMenu) player.getMenuManager().getMenu(ItemFilterMenu.class)).getFilters();
+                for(FilterType.ITEM f : enabledFilters)
+                filters.add(FilterFactory.createFilter(f));
+            }
 
-            if (player.getMenuManager().hasMenu(ContainerFilterMenu.class))
-                filters.addAll(((ContainerFilterMenu) player.getMenuManager().getMenu(ContainerFilterMenu.class)).getFilters());
+            if (player.getMenuManager().hasMenu(ContainerFilterMenu.class)) {
+                List<FilterType.CONTAINER> enabledFilters = (((ContainerFilterMenu) player.getMenuManager().getMenu(ContainerFilterMenu.class)).getFilters());
+                for(FilterType.CONTAINER f : enabledFilters)
+                    filters.add(FilterFactory.createFilter(f));
+            }
 
             ContainerReplaceOperation operation = new ContainerReplaceOperation(getInventory(), filters.toArray(new Filter[filters.size()]));
             operation.execute(selection);

@@ -9,36 +9,11 @@ import org.bukkit.block.Dropper;
 import org.bukkit.block.Furnace;
 import org.bukkit.block.Hopper;
 import org.bukkit.entity.minecart.HopperMinecart;
-import org.bukkit.entity.minecart.PoweredMinecart;
 import org.bukkit.entity.minecart.StorageMinecart;
 
 public class FilterFactory {
 
-    public enum FilterType {
-        //ITEMS:
-
-        MATERIAL,
-        NAME,
-        LORE,
-        AMOUNT,
-        DURABILITY,
-        ENCHANTMENT,
-
-        // CONTAINERS:
-
-        CHEST,
-        TRAPPED_CHEST,
-        FURNACE,
-        DROPPER,
-        DISPENSER,
-        HOPPER,
-        CHEST_MINECART,
-        FURNACE_MINECART,
-        HOPPER_MINECART,
-
-    }
-
-    public static Filter createFilter(FilterType type) {
+    public static Filter createFilter(FilterType.ITEM type) {
         switch (type) {
             case MATERIAL:
                 return new MaterialFilter();
@@ -52,6 +27,13 @@ public class FilterFactory {
                 return new DurabilityFilter();
             case ENCHANTMENT:
                 return new EnchantmentFilter();
+            default:
+                return null;
+        }
+    }
+
+    public static Filter createFilter(FilterType.CONTAINER type) {
+        switch (type) {
             case CHEST:
                 return new ChestFilter();
             case TRAPPED_CHEST:
@@ -66,8 +48,6 @@ public class FilterFactory {
                 return new BlockClassFilter(Hopper.class);
             case CHEST_MINECART:
                 return new BlockClassFilter(StorageMinecart.class);
-            case FURNACE_MINECART:
-                return new BlockClassFilter(PoweredMinecart.class);
             case HOPPER_MINECART:
                 return new BlockClassFilter(HopperMinecart.class);
             default:
