@@ -1,6 +1,7 @@
 package com.github.plastix.chester.utils;
 
 import com.github.plastix.chester.filter.Filter;
+import com.github.plastix.chester.filter.container.AbstractContainerFilter;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class RegionUtils {
 
-    public static List<Block> getRegionBlocks(CuboidSelection region, Filter... filters) {
+    public static List<Block> getRegionBlocks(CuboidSelection region, AbstractContainerFilter... filters) {
         return getRegionBlocks(region.getWorld(), region.getMinimumPoint(), region.getMaximumPoint(), filters);
     }
 
@@ -27,7 +28,7 @@ public class RegionUtils {
      * @param pos2  position 2 of the selection
      * @return a list of all blocks in the region
      */
-    public static List<Block> getRegionBlocks(World world, Location pos1, Location pos2, Filter... filters) {
+    public static List<Block> getRegionBlocks(World world, Location pos1, Location pos2, AbstractContainerFilter... filters) {
         List<Block> blocks = new ArrayList<Block>();
 
         for (double x = pos1.getX(); x <= pos2.getX(); x++) {
