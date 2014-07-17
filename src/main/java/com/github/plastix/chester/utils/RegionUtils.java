@@ -12,6 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.minecart.HopperMinecart;
 import org.bukkit.entity.minecart.StorageMinecart;
 
@@ -28,7 +29,10 @@ public class RegionUtils {
         try {
             for (Vector2D chunk : region.getRegionSelector().getRegion().getChunks()) {
                 Chunk bukkitChunk = region.getWorld().getChunkAt(chunk.getBlockX(), chunk.getBlockZ());
-                for (BlockState entity : bukkitChunk.getTileEntities()) {
+                for (Entity bukkitEntity : bukkitChunk.getEntities()) {
+                    if (!(bukkitEntity instanceof BlockState))
+                        continue;
+                    BlockState entity = (BlockState) bukkitEntity;
                     if (Math.abs(entity.getX()) > Math.abs(region.getMinimumPoint().getBlockX())
                         || Math.abs(entity.getZ()) > Math.abs(region.getMaximumPoint().getBlockZ()))
                         continue;
