@@ -1,6 +1,5 @@
 package com.github.plastix.chester.utils;
 
-import com.github.plastix.chester.filter.Filter;
 import com.github.plastix.chester.filter.container.AbstractContainerFilter;
 import com.google.common.collect.Lists;
 import com.sk89q.worldedit.IncompleteRegionException;
@@ -9,7 +8,7 @@ import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Block;
+import org.bukkit.block.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.minecart.HopperMinecart;
@@ -48,9 +47,8 @@ public class RegionUtils {
         List<Block> blocks = getRegionBlocks(region, filters);
         System.out.println(blocks.size());
         for (Block block : blocks) {
-            if (block instanceof InventoryHolder) {
-                entities.add((InventoryHolder) block);
-            }
+            BlockState state = block.getState();
+            entities.add((InventoryHolder) state);
         }
 
         return entities;
@@ -69,17 +67,19 @@ public class RegionUtils {
      * @return a list of all blocks in the region
      */
     public static List<Block> getRegionBlocks(World world, Location pos1, Location pos2, List<AbstractContainerFilter> filters) {
-        List<Block> blocks = new ArrayList<Block>();
+        List<Block> blocks = new ArrayList<>();
 
         for (double x = pos1.getX(); x <= pos2.getX(); x++) {
             for (double y = pos1.getY(); y <= pos2.getY(); y++) {
                 for (double z = pos1.getZ(); z <= pos2.getZ(); z++) {
                     Location loc = new Location(world, x, y, z);
                     Block block = loc.getBlock();
-                    for (Filter f : filters)
-                        if (!f.query(block))
-                            continue;
-                    blocks.add(block);
+                    for (AbstractContainerFilter f : filters) {
+                        if (f.query(block)) {
+                            blocks.add(block);
+                            break;
+                        }
+                    }
                 }
             }
         }
