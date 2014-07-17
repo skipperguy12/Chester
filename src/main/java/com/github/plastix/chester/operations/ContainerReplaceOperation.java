@@ -27,17 +27,12 @@ public class ContainerReplaceOperation implements BlockOperation {
     public ContainerReplaceOperation(Inventory bukkitInventory, Filter... filters) {
         this.bukkitInventory = bukkitInventory;
 
-
         for (Filter f : filters) {
-            System.out.println(f.getClass().getSimpleName());
             if (f instanceof AbstractContainerFilter)
                 containerFilters.add((AbstractContainerFilter) f);
             else if (f instanceof AbstractItemFilter)
                 itemFilters.add((AbstractItemFilter) f);
         }
-
-        System.out.print(itemFilters.size());
-        System.out.print(containerFilters.size());
     }
 
     @Override

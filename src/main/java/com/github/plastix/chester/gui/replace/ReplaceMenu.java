@@ -107,13 +107,17 @@ public class ReplaceMenu extends Menu {
             if (player.getMenuManager().hasMenu(ItemFilterMenu.class)) {
                 List<FilterType.ITEM> enabledFilters = ((ItemFilterMenu) player.getMenuManager().getMenu(ItemFilterMenu.class)).getFilters();
                 for(FilterType.ITEM f : enabledFilters)
-                filters.add(FilterFactory.createFilter(f));
+                    filters.add(FilterFactory.createFilter(f));
+            }else{
+                filters.add(FilterFactory.createFilter(FilterType.ITEM.MATERIAL));
             }
 
             if (player.getMenuManager().hasMenu(ContainerFilterMenu.class)) {
                 List<FilterType.CONTAINER> enabledFilters = (((ContainerFilterMenu) player.getMenuManager().getMenu(ContainerFilterMenu.class)).getFilters());
                 for(FilterType.CONTAINER f : enabledFilters)
                     filters.add(FilterFactory.createFilter(f));
+            }else{
+                filters.add(FilterFactory.createFilter(FilterType.CONTAINER.CHEST));
             }
 
             ContainerReplaceOperation operation = new ContainerReplaceOperation(getInventory(), filters.toArray(new Filter[filters.size()]));
