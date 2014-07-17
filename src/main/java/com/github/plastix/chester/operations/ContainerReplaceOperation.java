@@ -43,20 +43,20 @@ public class ContainerReplaceOperation implements BlockOperation {
     public void execute(Selection region) {
         Preconditions.checkArgument(region instanceof CuboidSelection, "At this time only CuboidSelections are supported for a ContainerReplaceOperation");
 
-        List<BlockState> blocks = RegionUtils.getRegionBlocksAndEntities((CuboidSelection) region, containerFilters.toArray(new AbstractContainerFilter[containerFilters.size()]));
-        for (BlockState block : blocks) {
+        List<InventoryHolder> blocks = RegionUtils.getRegionBlocksAndEntities((CuboidSelection) region, containerFilters);
+        for (InventoryHolder block : blocks) {
             Bukkit.getScheduler().runTaskLater(Chester.get(), new ContainerReplaceRunnable(block, itemFilters, bukkitInventory.getItem(12), bukkitInventory.getItem(14)), 0);
         }
     }
 
     class ContainerReplaceRunnable implements Runnable {
-        private BlockState block;
+        private InventoryHolder containerBlock;
         private List<AbstractItemFilter> filters;
         private ItemStack replaceItem;
         private ItemStack newItem;
 
-        public ContainerReplaceRunnable(BlockState blocks, List<AbstractItemFilter> filters, ItemStack replaceItem, ItemStack newItem) {
-            this.block = blocks;
+        public ContainerReplaceRunnable(InventoryHolder block, List<AbstractItemFilter> filters, ItemStack replaceItem, ItemStack newItem) {
+            this.containerBlock = block;
             this.filters = filters;
             this.replaceItem = replaceItem;
             this.newItem = newItem;
@@ -64,20 +64,14 @@ public class ContainerReplaceOperation implements BlockOperation {
 
         @Override
         public void run() {
-            if (block instanceof InventoryHolder) {
-                //Beacon, Brewingstand, Horse, HumanEntity, Player
-                if (block instanceof Beacon || block instanceof BrewingStand || block instanceof Horse || block instanceof HumanEntity || block instanceof Player)
-                    return;
-                InventoryHolder containerBlock = (InventoryHolder) block;
-                for (int i = 0; i < containerBlock.getInventory().getSize(); i++) {
-                    if (containerBlock.getInventory().getItem(i) == null)
+            for (int i = 0; i < containerBlock.getInventory().getSize(); i++) {
+                if (containerBlock.getInventory().getItem(i) == null)
+                    continue;
+                for (AbstractItemFilter filter : filters) {
+                    if (!filter.query(containerBlock.getInventory().getItem(i), replaceItem)) {
                         continue;
-                    for (AbstractItemFilter filter : filters) {
-                        if (!filter.query(containerBlock.getInventory().getItem(i), replaceItem)) {
-                            continue;
-                        }
-                        containerBlock.getInventory().setItem(i, newItem);
                     }
+                    containerBlock.getInventory().setItem(i, newItem);
                 }
             }
         }
