@@ -31,11 +31,12 @@ public class RegionUtils {
                 for (Entity bukkitEntity : bukkitChunk.getEntities()) {
                     if (!(bukkitEntity instanceof Minecart))
                         continue;
-//                    if (entity.getX() < region.getMinimumPoint().getBlockX() ||
-//                        entity.getX() > region.getMaximumPoint().getBlockX() ||
-//                        entity.getZ() < region.getMinimumPoint().getBlockY() ||
-//                        entity.getZ() > region.getMaximumPoint().getBlockY())
-//                        continue;
+                    Location loc = bukkitEntity.getLocation();
+                    if (loc.getX() < region.getMinimumPoint().getBlockX() ||
+                        loc.getX() > region.getMaximumPoint().getBlockX() ||
+                        loc.getZ() < region.getMinimumPoint().getBlockZ() ||
+                        loc.getZ() > region.getMaximumPoint().getBlockZ())
+                        continue;
                     if (bukkitEntity instanceof StorageMinecart || bukkitEntity instanceof HopperMinecart)
                         entities.add((InventoryHolder) bukkitEntity);
                 }
