@@ -2,11 +2,18 @@ package com.github.plastix.chester.utils;
 
 import com.github.plastix.chester.filter.Filter;
 import com.github.plastix.chester.filter.container.AbstractContainerFilter;
+import com.google.common.collect.Lists;
+import com.sk89q.worldedit.IncompleteRegionException;
+import com.sk89q.worldedit.Vector2D;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.entity.minecart.HopperMinecart;
+import org.bukkit.entity.minecart.StorageMinecart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +22,33 @@ import java.util.List;
  * Utils for finding blocks in regions
  */
 public class RegionUtils {
+
+    public static List<BlockState> getRegionBlocksAndEntities(CuboidSelection region, AbstractContainerFilter... filters) {
+        List<BlockState> entities = Lists.newArrayList();
+        try {
+            for (Vector2D chunk : region.getRegionSelector().getRegion().getChunks()) {
+                Chunk bukkitChunk = region.getWorld().getChunkAt(chunk.getBlockX(), chunk.getBlockZ());
+                for (BlockState entity : bukkitChunk.getTileEntities()) {
+                    if (Math.abs(entity.getX()) > Math.abs(region.getMinimumPoint().getBlockX())
+                        || Math.abs(entity.getZ()) > Math.abs(region.getMaximumPoint().getBlockZ()))
+                        continue;
+                    if (entity instanceof StorageMinecart || entity instanceof HopperMinecart)
+                        entities.add(entity);
+                }
+            }
+        } catch (IncompleteRegionException e) {
+            e.printStackTrace();
+        }
+
+        List<Block> blocks = getRegionBlocks(region, filters);
+        for (Block block : blocks) {
+            if (entities.contains(block.getState()))
+                continue;
+            entities.add(block.getState());
+        }
+
+        return entities;
+    }
 
     public static List<Block> getRegionBlocks(CuboidSelection region, AbstractContainerFilter... filters) {
         return getRegionBlocks(region.getWorld(), region.getMinimumPoint(), region.getMaximumPoint(), filters);
