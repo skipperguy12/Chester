@@ -10,9 +10,14 @@ import com.google.common.collect.Lists;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Beacon;
 import org.bukkit.block.BlockState;
-import org.bukkit.block.ContainerBlock;
+import org.bukkit.block.BrewingStand;
+import org.bukkit.entity.Horse;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
@@ -59,8 +64,11 @@ public class ContainerReplaceOperation implements BlockOperation {
 
         @Override
         public void run() {
-            if (block instanceof ContainerBlock) {
-                ContainerBlock containerBlock = (ContainerBlock) block;
+            if (block instanceof InventoryHolder) {
+                //Beacon, Brewingstand, Horse, HumanEntity, Player
+                if (block instanceof Beacon || block instanceof BrewingStand || block instanceof Horse || block instanceof HumanEntity || block instanceof Player)
+                    return;
+                InventoryHolder containerBlock = (InventoryHolder) block;
                 for (int i = 0; i < containerBlock.getInventory().getSize(); i++) {
                     if (containerBlock.getInventory().getItem(i) == null)
                         continue;
