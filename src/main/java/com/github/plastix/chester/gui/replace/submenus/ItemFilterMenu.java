@@ -87,7 +87,7 @@ public class ItemFilterMenu extends Menu {
         )
     )
     public void amountFilter(ChesterPlayer player) {
-        toggleItem(FilterType.ITEM.LORE, 3, "§b§lAmount");
+        toggleItem(FilterType.ITEM.AMOUNT, 3, "§b§lAmount");
     }
 
     @MenuItem(
