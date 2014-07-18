@@ -104,21 +104,15 @@ public class ReplaceMenu extends Menu {
 
             List<Filter> filters = Lists.newArrayList();
 
-            if (player.getMenuManager().hasMenu(ItemFilterMenu.class)) {
-                List<FilterType.ITEM> enabledFilters = ((ItemFilterMenu) player.getMenuManager().getMenu(ItemFilterMenu.class)).getFilters();
-                for(FilterType.ITEM f : enabledFilters)
-                    filters.add(FilterFactory.createFilter(f));
-            }else{
-                filters.add(FilterFactory.createFilter(FilterType.ITEM.MATERIAL));
-            }
+            if (player.getMenuManager().hasMenu(ItemFilterMenu.class))
+                    filters.addAll(((ItemFilterMenu) player.getMenuManager().getMenu(ItemFilterMenu.class)).getFilters());
+            else
+                filters.add(FilterFactory.createFilter(FilterType.MATERIAL));
 
             if (player.getMenuManager().hasMenu(ContainerFilterMenu.class)) {
-                List<FilterType.CONTAINER> enabledFilters = (((ContainerFilterMenu) player.getMenuManager().getMenu(ContainerFilterMenu.class)).getFilters());
-                for(FilterType.CONTAINER f : enabledFilters)
-                    filters.add(FilterFactory.createFilter(f));
-            }else{
-                filters.add(FilterFactory.createFilter(FilterType.CONTAINER.CHEST));
-            }
+                filters.addAll(((ContainerFilterMenu) player.getMenuManager().getMenu(ContainerFilterMenu.class)).getFilters());
+            }else
+                filters.add(FilterFactory.createFilter(FilterType.CHEST));
 
             ContainerReplaceOperation operation = new ContainerReplaceOperation(getInventory(), filters.toArray(new Filter[filters.size()]));
             operation.execute(selection);

@@ -5,7 +5,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.inventory.InventoryHolder;
 
-public class BlockClassFilter extends AbstractContainerFilter {
+public class BlockClassFilter extends AbstractBlockFilter {
     private Class<? extends InventoryHolder> clazz;
     
     public BlockClassFilter(Class<? extends InventoryHolder> c) {

@@ -1,26 +1,24 @@
 package com.github.plastix.chester.filter;
 
-public class FilterType {
+public enum FilterType {
 
-    public static enum ITEM {
+    //ITEM Filters
+    MATERIAL,
+    NAME,
+    LORE,
+    AMOUNT,
+    DURABILITY,
+    ENCHANTMENT,
 
-        MATERIAL,
-        NAME,
-        LORE,
-        AMOUNT,
-        DURABILITY,
-        ENCHANTMENT;
-    }
+    //BLOCK Filters
+    CHEST,
+    TRAPPED_CHEST,
+    FURNACE,
+    DROPPER,
+    DISPENSER,
+    HOPPER,
 
-    public static enum CONTAINER {
-
-        CHEST,
-        TRAPPED_CHEST,
-        FURNACE,
-        DROPPER,
-        DISPENSER,
-        HOPPER,
-        CHEST_MINECART,
-        HOPPER_MINECART;
-    }
+    //ENTITY Filters
+    STORAGE_MINECART,
+    HOPPER_MINECART,
 }

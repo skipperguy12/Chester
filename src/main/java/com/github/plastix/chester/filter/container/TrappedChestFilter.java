@@ -6,7 +6,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
 
-public class TrappedChestFilter extends AbstractContainerFilter {
+public class TrappedChestFilter extends AbstractBlockFilter {
 
     @Override
     public boolean query(Object thisblock) {

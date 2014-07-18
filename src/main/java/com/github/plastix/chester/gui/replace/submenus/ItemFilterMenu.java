@@ -2,6 +2,7 @@ package com.github.plastix.chester.gui.replace.submenus;
 
 import com.github.plastix.chester.ChesterPlayer;
 import com.github.plastix.chester.filter.FilterType;
+import com.github.plastix.chester.gui.replace.FilterMenu;
 import com.github.plastix.chester.gui.replace.ReplaceMenu;
 import net.njay.Menu;
 import net.njay.MenuManager;
@@ -23,9 +24,7 @@ import java.util.*;
     name = "§5Item Filters",
     onClose = ReplaceMenu.class
 )
-public class ItemFilterMenu extends Menu {
-
-    Map<FilterType.ITEM, Boolean> filters = new HashMap<>();
+public class ItemFilterMenu extends FilterMenu {
 
     /**
      * Constructor for a new ItemFilterMenu from a {@link net.njay.MenuManager} and a {@link org.bukkit.inventory.Inventory}
@@ -36,10 +35,10 @@ public class ItemFilterMenu extends Menu {
     public ItemFilterMenu(MenuManager manager, Inventory inv) {
         super(manager, inv);
         //Add all item filters to the filters map
-        for (FilterType.ITEM f : FilterType.ITEM.values())
+        for (FilterType f : FilterType.values())
             filters.put(f, false);
         //Enable chests by default
-        filters.put(FilterType.ITEM.MATERIAL, true);
+        filters.put(FilterType.MATERIAL, true);
     }
 
     @MenuItem(
@@ -51,7 +50,7 @@ public class ItemFilterMenu extends Menu {
         )
     )
     public void materialFilter(ChesterPlayer player) {
-        toggleItem(FilterType.ITEM.MATERIAL, 0, "§b§lMaterials");
+        toggleItem(FilterType.MATERIAL, 0, "§b§lMaterials");
     }
 
     @MenuItem(
@@ -63,7 +62,7 @@ public class ItemFilterMenu extends Menu {
         )
     )
     public void nameFilter(ChesterPlayer player) {
-        toggleItem(FilterType.ITEM.NAME, 1, "§b§lNames");
+        toggleItem(FilterType.NAME, 1, "§b§lNames");
     }
 
     @MenuItem(
@@ -75,7 +74,7 @@ public class ItemFilterMenu extends Menu {
         )
     )
     public void loreFilter(ChesterPlayer player) {
-        toggleItem(FilterType.ITEM.LORE, 2, "§b§lLore");
+        toggleItem(FilterType.LORE, 2, "§b§lLore");
     }
 
     @MenuItem(
@@ -87,7 +86,7 @@ public class ItemFilterMenu extends Menu {
         )
     )
     public void amountFilter(ChesterPlayer player) {
-        toggleItem(FilterType.ITEM.LORE, 3, "§b§lAmount");
+        toggleItem(FilterType.LORE, 3, "§b§lAmount");
     }
 
     @MenuItem(
@@ -99,7 +98,7 @@ public class ItemFilterMenu extends Menu {
         )
     )
     public void durabilityFilter(ChesterPlayer player) {
-        toggleItem(FilterType.ITEM.DURABILITY, 4, "§b§lDurability");
+        toggleItem(FilterType.DURABILITY, 4, "§b§lDurability");
     }
 
     @MenuItem(
@@ -111,20 +110,7 @@ public class ItemFilterMenu extends Menu {
         )
     )
     public void enchantmentFilter(ChesterPlayer player) {
-        toggleItem(FilterType.ITEM.ENCHANTMENT, 5, "§b§lEnchantments");
+        toggleItem(FilterType.ENCHANTMENT, 5, "§b§lEnchantments");
     }
 
-
-    private void toggleItem(FilterType.ITEM type, int slot, String name){
-        filters.put(type, !filters.get(type));
-        ItemUtils.getNamedItemStack(this.getInventory().getItem(slot), name, Arrays.asList(filters.get(type) ? ChatColor.GREEN + "ENABLED" : ChatColor.RED + "DISABLED"));
-    }
-
-    public List<FilterType.ITEM> getFilters() {
-        List<FilterType.ITEM> enabledFilters = new ArrayList<>();
-        for (FilterType.ITEM f : FilterType.ITEM.values())
-            if (filters.get(f))
-                enabledFilters.add(f);
-        return enabledFilters;
-    }
 }

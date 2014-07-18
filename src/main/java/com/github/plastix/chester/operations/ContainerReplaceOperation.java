@@ -2,7 +2,7 @@ package com.github.plastix.chester.operations;
 
 import com.github.plastix.chester.Chester;
 import com.github.plastix.chester.filter.Filter;
-import com.github.plastix.chester.filter.container.AbstractContainerFilter;
+import com.github.plastix.chester.filter.container.AbstractBlockFilter;
 import com.github.plastix.chester.filter.item.AbstractItemFilter;
 import com.github.plastix.chester.utils.RegionUtils;
 import com.google.common.base.Preconditions;
@@ -10,12 +10,6 @@ import com.google.common.collect.Lists;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 import org.bukkit.Bukkit;
-import org.bukkit.block.Beacon;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.BrewingStand;
-import org.bukkit.entity.Horse;
-import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -24,7 +18,7 @@ import java.util.List;
 
 public class ContainerReplaceOperation implements BlockOperation {
     protected Inventory bukkitInventory;
-    protected List<AbstractContainerFilter> containerFilters = Lists.newArrayList();
+    protected List<AbstractBlockFilter> containerFilters = Lists.newArrayList();
     protected List<AbstractItemFilter> itemFilters = Lists.newArrayList();
 
 
@@ -32,8 +26,8 @@ public class ContainerReplaceOperation implements BlockOperation {
         this.bukkitInventory = bukkitInventory;
 
         for (Filter f : filters) {
-            if (f instanceof AbstractContainerFilter)
-                containerFilters.add((AbstractContainerFilter) f);
+            if (f instanceof AbstractBlockFilter)
+                containerFilters.add((AbstractBlockFilter) f);
             else if (f instanceof AbstractItemFilter)
                 itemFilters.add((AbstractItemFilter) f);
         }

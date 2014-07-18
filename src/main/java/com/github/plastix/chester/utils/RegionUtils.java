@@ -1,6 +1,6 @@
 package com.github.plastix.chester.utils;
 
-import com.github.plastix.chester.filter.container.AbstractContainerFilter;
+import com.github.plastix.chester.filter.container.AbstractBlockFilter;
 import com.google.common.collect.Lists;
 import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.Vector2D;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class RegionUtils {
 
-    public static List<InventoryHolder> getRegionBlocksAndEntities(CuboidSelection region, List<AbstractContainerFilter> filters) {
+    public static List<InventoryHolder> getRegionBlocksAndEntities(CuboidSelection region, List<AbstractBlockFilter> filters) {
         List<InventoryHolder> entities = Lists.newArrayList();
         try {
             for (Vector2D chunk : region.getRegionSelector().getRegion().getChunks()) {
@@ -55,7 +55,7 @@ public class RegionUtils {
         return entities;
     }
 
-    public static List<Block> getRegionBlocks(CuboidSelection region, List<AbstractContainerFilter> filters) {
+    public static List<Block> getRegionBlocks(CuboidSelection region, List<AbstractBlockFilter> filters) {
         return getRegionBlocks(region.getWorld(), region.getMinimumPoint(), region.getMaximumPoint(), filters);
     }
 
@@ -67,7 +67,7 @@ public class RegionUtils {
      * @param pos2  position 2 of the selection
      * @return a list of all blocks in the region
      */
-    public static List<Block> getRegionBlocks(World world, Location pos1, Location pos2, List<AbstractContainerFilter> filters) {
+    public static List<Block> getRegionBlocks(World world, Location pos1, Location pos2, List<AbstractBlockFilter> filters) {
         List<Block> blocks = new ArrayList<>();
 
         for (double x = pos1.getX(); x <= pos2.getX(); x++) {
@@ -75,7 +75,7 @@ public class RegionUtils {
                 for (double z = pos1.getZ(); z <= pos2.getZ(); z++) {
                     Location loc = new Location(world, x, y, z);
                     Block block = loc.getBlock();
-                    for (AbstractContainerFilter f : filters) {
+                    for (AbstractBlockFilter f : filters) {
                         if (f.query(block)) {
                             blocks.add(block);
                             break;

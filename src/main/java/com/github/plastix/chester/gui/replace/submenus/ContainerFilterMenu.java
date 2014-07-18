@@ -2,6 +2,7 @@ package com.github.plastix.chester.gui.replace.submenus;
 
 import com.github.plastix.chester.ChesterPlayer;
 import com.github.plastix.chester.filter.FilterType;
+import com.github.plastix.chester.gui.replace.FilterMenu;
 import com.github.plastix.chester.gui.replace.ReplaceMenu;
 import net.njay.Menu;
 import net.njay.MenuManager;
@@ -23,9 +24,7 @@ import java.util.*;
     name = "§5Container Filters",
     onClose = ReplaceMenu.class
 )
-public class ContainerFilterMenu extends Menu {
-
-    Map<FilterType.CONTAINER, Boolean> filters = new HashMap<>();
+public class ContainerFilterMenu extends FilterMenu {
 
     /**
      * Constructor for a new ContainerFilter Menu from a {@link net.njay.MenuManager} and a {@link org.bukkit.inventory.Inventory}
@@ -36,10 +35,10 @@ public class ContainerFilterMenu extends Menu {
     public ContainerFilterMenu(MenuManager manager, Inventory inv) {
         super(manager, inv);
         //Add all container filters to the filters map
-        for (FilterType.CONTAINER f : FilterType.CONTAINER.values())
+        for (FilterType f : FilterType.values())
             filters.put(f, false);
         //Enable chests by default
-        filters.put(FilterType.CONTAINER.CHEST, true);
+        filters.put(FilterType.CHEST, true);
     }
 
     @MenuItem(
@@ -51,7 +50,7 @@ public class ContainerFilterMenu extends Menu {
         )
     )
     public void chestFilter(ChesterPlayer player) {
-        toggleItem(FilterType.CONTAINER.CHEST, 0, "§b§lChests");
+        toggleItem(FilterType.CHEST, 0, "§b§lChests");
     }
 
     @MenuItem(
@@ -63,7 +62,7 @@ public class ContainerFilterMenu extends Menu {
         )
     )
     public void trappedChestFilter(ChesterPlayer player) {
-        toggleItem(FilterType.CONTAINER.TRAPPED_CHEST, 1, "§b§lTrapped Chests");
+        toggleItem(FilterType.TRAPPED_CHEST, 1, "§b§lTrapped Chests");
     }
 
     @MenuItem(
@@ -75,7 +74,7 @@ public class ContainerFilterMenu extends Menu {
         )
     )
     public void furnaceFilter(ChesterPlayer player) {
-        toggleItem(FilterType.CONTAINER.FURNACE, 2, "§b§lFurnaces");
+        toggleItem(FilterType.FURNACE, 2, "§b§lFurnaces");
 
     }
 
@@ -88,7 +87,7 @@ public class ContainerFilterMenu extends Menu {
         )
     )
     public void dropperFilter(ChesterPlayer player) {
-        toggleItem(FilterType.CONTAINER.DROPPER, 3, "§b§lDroppers");
+        toggleItem(FilterType.DROPPER, 3, "§b§lDroppers");
 
     }
 
@@ -101,7 +100,7 @@ public class ContainerFilterMenu extends Menu {
         )
     )
     public void dispenserFilter(ChesterPlayer player) {
-        toggleItem(FilterType.CONTAINER.DISPENSER, 4, "§b§lDispensers");
+        toggleItem(FilterType.DISPENSER, 4, "§b§lDispensers");
 
     }
 
@@ -114,7 +113,7 @@ public class ContainerFilterMenu extends Menu {
         )
     )
     public void hopperFilter(ChesterPlayer player) {
-        toggleItem(FilterType.CONTAINER.HOPPER, 5, "§b§lHoppers");
+        toggleItem(FilterType.HOPPER, 5, "§b§lHoppers");
 
     }
 
@@ -127,7 +126,7 @@ public class ContainerFilterMenu extends Menu {
         )
     )
     public void storageMinecartFilter(ChesterPlayer player) {
-        toggleItem(FilterType.CONTAINER.CHEST_MINECART, 6, "§b§lChest Minecarts");
+        toggleItem(FilterType.STORAGE_MINECART, 6, "§b§lChest Minecarts");
 
     }
 
@@ -140,20 +139,8 @@ public class ContainerFilterMenu extends Menu {
         )
     )
     public void hopperMinecartFilter(ChesterPlayer player) {
-        toggleItem(FilterType.CONTAINER.HOPPER_MINECART, 7, "§b§lHopper Minecarts");
+        toggleItem(FilterType.HOPPER_MINECART, 7, "§b§lHopper Minecarts");
 
     }
 
-    private void toggleItem(FilterType.CONTAINER type, int slot, String name) {
-        filters.put(type, !filters.get(type));
-        ItemUtils.getNamedItemStack(this.getInventory().getItem(slot), name, Arrays.asList(filters.get(type) ? ChatColor.GREEN + "ENABLED" : ChatColor.RED + "DISABLED"));
-    }
-
-    public List<FilterType.CONTAINER> getFilters() {
-        List<FilterType.CONTAINER> enabledFilters = new ArrayList<>();
-        for (FilterType.CONTAINER f : FilterType.CONTAINER.values())
-            if (filters.get(f))
-                enabledFilters.add(f);
-        return enabledFilters;
-    }
 }
