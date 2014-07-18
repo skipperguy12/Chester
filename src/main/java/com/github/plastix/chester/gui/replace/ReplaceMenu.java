@@ -114,7 +114,7 @@ public class ReplaceMenu extends Menu {
             }else
                 filters.add(FilterFactory.createFilter(FilterType.CHEST));
 
-            ContainerReplaceOperation operation = new ContainerReplaceOperation(getInventory(), filters.toArray(new Filter[filters.size()]));
+            ContainerReplaceOperation operation = new ContainerReplaceOperation(getInventory(), filters);
             operation.execute(selection);
 
             player.resetManager();

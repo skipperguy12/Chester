@@ -1,6 +1,7 @@
 package com.github.plastix.chester.utils;
 
 import com.github.plastix.chester.filter.container.AbstractBlockFilter;
+import com.github.plastix.chester.filter.entity.AbstractEntityFilter;
 import com.google.common.collect.Lists;
 import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.Vector2D;
@@ -23,36 +24,37 @@ import java.util.List;
  */
 public class RegionUtils {
 
-    public static List<InventoryHolder> getRegionBlocksAndEntities(CuboidSelection region, List<AbstractBlockFilter> filters) {
-        List<InventoryHolder> entities = Lists.newArrayList();
+    public static List<InventoryHolder> getRegionBlocksAndEntities(CuboidSelection region, List<AbstractBlockFilter> blockFilters, List<AbstractEntityFilter> entityFilters) {
+        List<InventoryHolder> inventories = Lists.newArrayList();
+
         try {
             for (Vector2D chunk : region.getRegionSelector().getRegion().getChunks()) {
                 Chunk bukkitChunk = region.getWorld().getChunkAt(chunk.getBlockX(), chunk.getBlockZ());
                 for (Entity bukkitEntity : bukkitChunk.getEntities()) {
-                    if (!(bukkitEntity instanceof Minecart))
-                        continue;
                     Location loc = bukkitEntity.getLocation();
                     if (loc.getX() < region.getMinimumPoint().getBlockX() ||
                         loc.getX() > region.getMaximumPoint().getBlockX() ||
                         loc.getZ() < region.getMinimumPoint().getBlockZ() ||
                         loc.getZ() > region.getMaximumPoint().getBlockZ())
                         continue;
-                    if (bukkitEntity instanceof StorageMinecart || bukkitEntity instanceof HopperMinecart)
-                        entities.add((InventoryHolder) bukkitEntity);
+                    for (AbstractEntityFilter f : entityFilters) {
+                        if (f.query(bukkitEntity))
+                            inventories.add((InventoryHolder) bukkitEntity);
+                    }
                 }
             }
         } catch (IncompleteRegionException e) {
             e.printStackTrace();
         }
 
-        List<Block> blocks = getRegionBlocks(region, filters);
+        List<Block> blocks = getRegionBlocks(region, blockFilters);
         System.out.println(blocks.size());
         for (Block block : blocks) {
             BlockState state = block.getState();
-            entities.add((InventoryHolder) state);
+            inventories.add((InventoryHolder) state);
         }
 
-        return entities;
+        return inventories;
     }
 
     public static List<Block> getRegionBlocks(CuboidSelection region, List<AbstractBlockFilter> filters) {

@@ -3,6 +3,7 @@ package com.github.plastix.chester.operations;
 import com.github.plastix.chester.Chester;
 import com.github.plastix.chester.filter.Filter;
 import com.github.plastix.chester.filter.container.AbstractBlockFilter;
+import com.github.plastix.chester.filter.entity.AbstractEntityFilter;
 import com.github.plastix.chester.filter.item.AbstractItemFilter;
 import com.github.plastix.chester.utils.RegionUtils;
 import com.google.common.base.Preconditions;
@@ -20,9 +21,10 @@ public class ContainerReplaceOperation implements BlockOperation {
     protected Inventory bukkitInventory;
     protected List<AbstractBlockFilter> containerFilters = Lists.newArrayList();
     protected List<AbstractItemFilter> itemFilters = Lists.newArrayList();
+    protected List<AbstractEntityFilter> entityFilters = Lists.newArrayList();
 
 
-    public ContainerReplaceOperation(Inventory bukkitInventory, Filter... filters) {
+    public ContainerReplaceOperation(Inventory bukkitInventory, List<Filter> filters) {
         this.bukkitInventory = bukkitInventory;
 
         for (Filter f : filters) {
@@ -30,6 +32,8 @@ public class ContainerReplaceOperation implements BlockOperation {
                 containerFilters.add((AbstractBlockFilter) f);
             else if (f instanceof AbstractItemFilter)
                 itemFilters.add((AbstractItemFilter) f);
+            else if(f instanceof AbstractEntityFilter)
+                entityFilters.add((AbstractEntityFilter)f);
         }
     }
 
@@ -37,7 +41,7 @@ public class ContainerReplaceOperation implements BlockOperation {
     public void execute(Selection region) {
         Preconditions.checkArgument(region instanceof CuboidSelection, "At this time only CuboidSelections are supported for a ContainerReplaceOperation");
 
-        List<InventoryHolder> blocks = RegionUtils.getRegionBlocksAndEntities((CuboidSelection) region, containerFilters);
+        List<InventoryHolder> blocks = RegionUtils.getRegionBlocksAndEntities((CuboidSelection) region, containerFilters, entityFilters);
         for (InventoryHolder block : blocks) {
             Bukkit.getScheduler().runTaskLater(Chester.get(), new ContainerReplaceRunnable(block, itemFilters, bukkitInventory.getItem(12), bukkitInventory.getItem(14)), 0);
         }
